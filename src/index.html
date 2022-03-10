@@ -7,8 +7,23 @@
   <title>Document</title>
 </head>
 <body>
+    <!-- Botones de navegación -->
+    <header>
+      <button id="Home" onclick="ROUTER.load('home')">Home </button>
+<button id="About" onclick="ROUTER.load('about')">About</button>
+<button id="Contact" onclick="ROUTER.load('contact')">Contact</button>
+</header>
+
+<!-- Aquí es donde se insertará el contenido según la página en la que nos encontremos -->
+<div id="content"></div>
+
+<!-- En estos archivos estará la mágica para la navegación -->
+<script src="./router.js"></script>
+<script src="./routes.js"></script>
+<script src="./index.js"></script>
   <div id="root"></div>
   <script type="module" src="main.js"></script>
+  
  
 </body>
 </html>
