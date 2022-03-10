@@ -1,18 +1,30 @@
 // Este es el punto de entrada de tu aplicacion
 
 import { myFunction } from './lib/index.js';
-
-import { routes } from './routes';
+import { routes } from './routes.js';
 
 myFunction();
-const rootDiv = document.getElementById('root');
+let rootDiv = document.getElementById('root');
 
 window.onload = function start() {
-  rootDiv.innerHTML = `<ul>
-<li><a href=""></a>
+  const buttons = document.createElement('div');
+  buttons.innerHTML = `<ul>
+<li><a href="#" onclick="onNavigate('/about'); return false;" id="logInButton" >LogIn</a>
 </li>
-<li><a href=""></a>
+<li><a href="#">Register</a>
 </li>
-</ul>
-`
-}
+</ul>`
+  rootDiv.appendChild(buttons);
+};
+
+/* const main = '../src/main.js'; */
+
+
+export const onNavigate = (pathname) => {
+  window.history.pushState(
+    {},
+    pathname,
+    window.location.origin + pathname
+  );
+  rootDiv.innerHTML = routes[pathname];
+};
