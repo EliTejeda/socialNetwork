@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
+  <script src="about.js"></script>
+  <script src="home.js"></script>
+  <script src="contact.js"></script>
 </head>
+
 <body>
-    <!-- Botones de navegación -->
-    <header>
-      <button id="Home" onclick="ROUTER.load('home')">Home </button>
-<button id="About" onclick="ROUTER.load('about')">About</button>
-<button id="Contact" onclick="ROUTER.load('contact')">Contact</button>
-</header>
-
-<!-- Aquí es donde se insertará el contenido según la página en la que nos encontremos -->
-<div id="content"></div>
-
-<!-- En estos archivos estará la mágica para la navegación -->
-<script src="./router.js"></script>
-<script src="./routes.js"></script>
-<script src="./index.js"></script>
   <div id="root"></div>
+
   <script type="module" src="main.js"></script>
-  
- 
+  <ul class="navbar-list">
+    <li class="navbar-item"><a href="#" onclick="onNavigate('/about'); return false;">About</a></li>
+    <li class="navbar-item"><a href="#" onclick="onNavigate('/'); return false;">Home</a></li>
+    <li class="navbar-item"><a href="#" onclick="onNavigate('/contact'); return false;">Contact</a></li>
+  </ul>
+
+  <script src="app.js"></script>
+
+
 </body>
+
 </html>
