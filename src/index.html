@@ -6,20 +6,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
-  <script src="about.js"></script>
-  <script src="home.js"></script>
-  <script src="contact.js"></script>
+  <link href="style.css" rel="stylesheet" type="text/css">
+  <script src="start.js"></script>
+  <script src="login.js"></script>
+  <script src="account.js"></script>
+  
 </head>
 
 <body>
   <div id="root"></div>
+  <ul class="navbar-list">
+    <li class="navbar-item"><a href="#" onclick="onNavigate('/login'); return false;">Log In</a></li>
+    <li class="navbar-item"><a href="#" onclick="onNavigate('/account'); return false;">Register</a></li>
+  </ul>
 
   <script type="module" src="main.js"></script>
-  <ul class="navbar-list">
-    <li class="navbar-item"><a href="#" onclick="onNavigate('/about'); return false;">About</a></li>
-    <li class="navbar-item"><a href="#" onclick="onNavigate('/'); return false;">Home</a></li>
-    <li class="navbar-item"><a href="#" onclick="onNavigate('/contact'); return false;">Contact</a></li>
-  </ul>
+ 
 
   <script src="app.js"></script>
 
