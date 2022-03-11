@@ -1,19 +1,20 @@
 const routes = {
-  '/login':login,
-  '/account':account,
-  '/start':start
+  '/login': login,
+  '/account': account,
+  '/start': start
 };
-const rootDiv = document.getElementById('root');
-rootDiv.innerHTML = routes[window.location.pathname];
-const onNavigate = (pathname) => {
+const rootSon = document.createElement('div');
+rootSon.innerHTML = routes[window.location.pathname];
+export const onNavigate = (pathname) => {
   window.history.pushState(
     {},
     pathname,
     window.location.origin + pathname
   )
-  rootDiv.innerHTML = routes[pathname];
+  rootSon.innerHTML = routes[pathname];
 };
 
 window.onpopstate = () => {
-  rootDiv.innerHTML = routes[window.location.pathname]
+  rootSon.innerHTML = routes[window.location.pathname]
 };
+document.getElementById('root').appendChild(rootSon);
