@@ -7,6 +7,7 @@ myFunction();
 
 document.body.onload = function () {
   onNavigate('/start');
-  document.getElementById('toLogin').addEventListener('click', onNavigate('/login'));
-  document.getElementById('toAccount').addEventListener('click', onNavigate('/account'));
 };
+
+document.getElementById('toLogin').addEventListener('click', onNavigate('/login'));
+document.getElementById('toAccount').addEventListener('click', onNavigate('/account'));
