@@ -1,0 +1,32 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+  }
+
+.startContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;  
+    background-color: rgb(237, 245, 226);  
+}
+
+.imgStart{
+    width: 80vw;
+    box-shadow: 8px 5px 5px lavender ;
+}
+
+.logoMuñe {
+    width: 70vw; 
+}
+
+.loginButton {
+    width: 60vw;
+    height: 5vh;
+    border-radius: 30px;
+    background-color: rgb(250, 244, 244);
+    box-shadow: 8px 5px 5px rgb(125, 125, 126) ;
+}

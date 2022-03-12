@@ -6,8 +6,8 @@ import { login } from './login.js';
 import { account } from './account.js';
 
 const routes = { /*objeto con distintas propiedades *///eslint-disable-line
-  '/login': login,
-  '/account': account,
+  '/login': login(),
+  '/account': account(),
   '/start': start(),
 };
 
@@ -29,4 +29,4 @@ window.onpopstate = () => {       /*actualiza url localizacion *///eslint-disabl
 document.body.onload = () => {  /*carga las funciones a la pagina*///eslint-disable-line
   onNavigate('/start');
   start();
-};
+  };
