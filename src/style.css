@@ -21,6 +21,7 @@
     overflow: hidden;
     color: black;
     
+    
 }
 
 .inputsContainer {
@@ -42,7 +43,7 @@
 }
 
 .logoMuñe {
-    height: 13em;
+    height: 20em;
     margin: auto;
 }
 
