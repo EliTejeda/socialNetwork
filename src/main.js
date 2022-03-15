@@ -31,3 +31,4 @@ window.onpopstate = () => {       /*actualiza url localizacion *///eslint-disabl
 document.body.onload = () => {  /*carga las funciones a la pagina*///eslint-disable-line
   onNavigate('/start');
 };
+
