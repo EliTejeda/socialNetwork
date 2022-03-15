@@ -1,28 +1,25 @@
-function alertUser(){
-  const user = document.getElementById('user').value;
-  const passwrd = document.getElementById('password').value;
-  alert(user + passwrd);
-}
-window.alertUser = alertUser;
+// eslint-disable-next-line import/no-cycle
+import { onNavigate } from './main.js';
 
 function login() {
   const loginButtons = document.createElement('div');
-  loginButtons.innerHTML = `
-  <div class ="startContainer">
-  <div class ="logoContainer">
-  <img class= "logoMuñe" src="./assets/mochilerox.svg" alt="Logo de paseito, muñeca con mochila">
-  </div>
-  <div class= "inputsContainer">
-  <p class="loginText">Ingresa tus datos:</p>
-  <input type = 'text'  name= 'userName' id= 'user' class='loginInput' placeholder="Correo electrónico">
-  <input type = 'text'  name= 'password' id= 'password' class='loginInput'placeholder="contraseña">
-  <button onclick="onNavigate('/start'); return false;" class="loginButton">Ingresar</button>
-  <p class="loginText">Loguearse con:</p>
-  <button onclick="onNavigate('/start'); return false;" class="loginButton">Gmail</button>
-  <button onclick="onNavigate('/start'); return false;" class="loginButton">Facebook</button>
-  </div>
-  </div>`;
-  return loginButtons.innerHTML;
+  loginButtons.classList.add('startContainer');
+  const startLogo = document.createElement('img');
+  startLogo.classList.add('logoMuñe');
+  startLogo.src = './assets/mochilerox.svg';
+  const loginInput = document.createElement('input');
+  loginInput.classList.add('loginInput');
+  loginInput.textContent = 'Usuario';
+  const passInput = document.createElement('input');
+  passInput.classList.add('loginInput');
+  passInput.textContent = 'Password';
+  const loginButton = document.createElement('button');
+  loginButton.classList.add('loginButton');
+  loginButton.textContent = 'Ingresar';
+  loginButton.addEventListener('click', () => {
+    onNavigate('/');
+  });
+  loginButtons.append(startLogo, loginInput, passInput, loginButton);
+  return loginButtons;
 }
-
 export { login };

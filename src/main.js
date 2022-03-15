@@ -1,33 +1,33 @@
+/* eslint-disable import/no-cycle */
 // Este es el punto de entrada de tu aplicacion **parte dinamica**
 import { start } from './start.js';
 import { login } from './login.js';
 import { account } from './account.js';
-// import { } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-SERVICE.js";
 
 const routes = { /*objeto con distintas propiedades *///eslint-disable-line
-  '/login': login(),
-  '/account': account(),
-  '/start': start(),
+  '/': start,
+  '/login': login,
+  '/account': account,
 };
 
 const rootDiv = document.getElementById('root');
-const rootSon = document.createElement('div');
-rootSon.innerHTML = routes[window.location.pathname];
 const onNavigate = (pathname) => {
   window.history.pushState(            /* anexa un registro a nuestro historial de navegacion  */ //eslint-disable-line
     {},
     pathname,
     window.location.origin + pathname,
   );
-  rootSon.innerHTML = routes[pathname];
-  rootDiv.appendChild(rootSon);
+  while (rootDiv.firstChild) {
+    rootDiv.removeChild(rootDiv.firstChild);
+  }
+  rootDiv.appendChild(routes[pathname]());
 };
-window.onNavigate = onNavigate; /* queda en dominio de window*/ //eslint-disable-line
+
 window.onpopstate = () => {       /*actualiza url localizacion *///eslint-disable-line
-  rootSon.innerHTML = routes[window.location.pathname];
+  rootDiv.appendChild(routes[window.location.pathname]());
 };
 
-document.body.onload = () => {  /*carga las funciones a la pagina*///eslint-disable-line
-  onNavigate('/start');
-};
+const component = routes[window.location.pathname];
+rootDiv.appendChild(component());
 
+export { onNavigate };
