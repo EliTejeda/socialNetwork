@@ -1,9 +1,28 @@
+// eslint-disable-next-line import/no-cycle
+import { onNavigate } from './main.js';
+
 function start() {
   const startButtons = document.createElement('div');
-  startButtons.innerHTML = `
-  <div class="startContainer"><img class= "logoMuñe" src="./assets/mochilerox.svg" alt="Logo de paseito, muñeca con mochila">
-  <button onclick="onNavigate('/login'); return false;" class="loginButton">Login</button>
-  <button onclick="onNavigate('/account'); return false;" class="loginButton">Account</button></div>`;
-  return startButtons.innerHTML;
+  startButtons.classList.add('startContainer');
+  const startLogo = document.createElement('img');
+  startLogo.classList.add('logoMuñe');
+  startLogo.src = './assets/mochilerox.svg';
+  const titleStart = document.createElement('h1');
+  titleStart.classList.add('titleStart');
+  titleStart.textContent = 'PASEITO';
+  const loginButton = document.createElement('button');
+  loginButton.classList.add('loginButton');
+  loginButton.textContent = 'Login';
+  loginButton.addEventListener('click', () => {
+    onNavigate('/login');
+  });
+  const registerButton = document.createElement('button');
+  registerButton.classList.add('loginButton');
+  registerButton.textContent = 'Registrar';
+  registerButton.addEventListener('click', () => {
+    onNavigate('/account');
+  });
+  startButtons.append(startLogo, titleStart, loginButton, registerButton);
+  return startButtons;
 }
 export { start };

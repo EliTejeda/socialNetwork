@@ -1,14 +1,26 @@
+// eslint-disable-next-line import/no-cycle
+import { onNavigate } from './main.js';
+
 function account() {
   const accountButtons = document.createElement('div');
-  accountButtons.innerHTML = `
-  <div class="startContainer"><img class= "logoMuñe" src="./assets/mochilerox.svg" alt="Logo de paseito, muñeca con mochila">
-  <p class="loginText">Ingresa tus datos:</p>
-  <input type = 'text'  name= 'userName' id= 'userName' class= 'loginInput' placeholder="Nombre completo">
-  <input type = 'text'  name= 'userEmail' id= 'userEmail' class= 'loginInput' placeholder="Correo electrónico">
-  <input type = 'text'  name= 'user' id= 'user' class= 'loginInput' placeholder="Usuario">
-  <input type = 'text'  name= 'password' id= 'password' class= 'loginInput' placeholder="contraseña">
-  <button onclick="onNavigate('/start'); return false;" class="loginButton">Registrarse</button></div>`;
-
-  return accountButtons.innerHTML;
+  accountButtons.classList.add('startContainer');
+  const startLogo = document.createElement('img');
+  startLogo.classList.add('logoMuñe');
+  startLogo.src = './assets/mochilerox.svg';
+  const registerInput = document.createElement('input');
+  registerInput.classList.add('loginInput');
+  registerInput.textContent = 'Usuario';
+  const passInput = document.createElement('input');
+  passInput.classList.add('loginInput');
+  passInput.textContent = 'Password';
+  const createButton = document.createElement('button');
+  createButton.classList.add('loginButton');
+  createButton.textContent = 'Crear';
+  createButton.addEventListener('click', () => {
+    onNavigate('/');
+  });
+  accountButtons.append(startLogo, registerInput, passInput, createButton);
+  return accountButtons;
 }
+
 export { account };
