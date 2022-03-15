@@ -1,9 +1,8 @@
 // Este es el punto de entrada de tu aplicacion **parte dinamica**
-
-import { myFunction } from './lib/index.js';
 import { start } from './start.js';
 import { login } from './login.js';
 import { account } from './account.js';
+// import { } from "https://www.gstatic.com/firebasejs/9.6.7/firebase-SERVICE.js";
 
 const routes = { /*objeto con distintas propiedades *///eslint-disable-line
   '/login': login(),
