@@ -2,12 +2,13 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box; 
+ 
   }
 
 #root {
     background-color: rgb(237, 245, 226);
     color: rgb(237, 245, 226); 
-}
+ }
 
 .startContainer {
     width: 100vw;
@@ -17,11 +18,9 @@
     align-items: center;
     padding: 3em;
     justify-content: space-between;  
-    background-color: rgb(237, 245, 226);  
     overflow: hidden;
     color: black;
-    
-    
+  
 }
 
 .inputsContainer {
@@ -45,6 +44,11 @@
 .logoMuñe {
     height: 20em;
     margin: auto;
+}
+
+.titleStart{
+  color: green;
+  margin: 0px;
 }
 
 .loginButton {
