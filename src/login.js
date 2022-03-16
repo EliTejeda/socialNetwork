@@ -12,6 +12,7 @@ function login() {
   loginInput.textContent = 'Usuario';
   const passInput = document.createElement('input');
   passInput.classList.add('loginInput');
+  loginInput.setAttribute('placeholder', 'CORREO');
   passInput.textContent = 'Password';
   const loginButton = document.createElement('button');
   loginButton.classList.add('loginButton');

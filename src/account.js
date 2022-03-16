@@ -28,15 +28,18 @@ function account() {
   registerInput.setAttribute('value', '');
   registerInput.classList.add('loginInput');
   registerInput.textContent = 'Usuario';
+  registerInput.setAttribute("placeholder", "CORREO");
   const passInput = document.createElement('input');
   passInput.setAttribute('id', 'password');
   passInput.classList.add('loginInput');
   passInput.textContent = 'Password';
+  passInput.setAttribute("placeholder", "CONTRASEÑA");
+  passInput.setAttribute('type', 'password');
+
   const createButton = document.createElement('button');
   createButton.classList.add('loginButton');
   createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
-    console.log(registerInput.value, passInput.value);
     createUserWithEmailAndPassword(auth, registerInput.value, passInput.value)
       .then((userCredential) => {
       // Signed in
@@ -46,8 +49,8 @@ function account() {
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-      // ..
-    });
+        // ..
+      });
   });
   accountButtons.append(startLogo, registerInput, passInput, createButton);
   return accountButtons;
