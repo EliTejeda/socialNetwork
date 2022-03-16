@@ -12,9 +12,11 @@ function login() {
   loginInput.textContent = 'Usuario';
   const passInput = document.createElement('input');
   passInput.classList.add('loginInput');
+  passInput.setAttribute('placeholder', 'CONTRASEÑA');
   passInput.textContent = 'Password';
   const loginButton = document.createElement('button');
   loginButton.classList.add('loginButton');
+  loginInput.setAttribute('placeholder', 'CORREO');
   loginButton.textContent = 'Ingresar';
   loginButton.addEventListener('click', () => {
     onNavigate('/');

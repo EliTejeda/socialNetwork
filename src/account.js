@@ -25,30 +25,21 @@ function account() {
   startLogo.src = './assets/mochilerox.svg';
   const registerInput = document.createElement('input');
   registerInput.setAttribute('id', 'user');
-  registerInput.setAttribute('value', '');
+  registerInput.setAttribute('placeholder', 'CORREO');
   registerInput.classList.add('loginInput');
   registerInput.textContent = 'Usuario';
   const passInput = document.createElement('input');
   passInput.setAttribute('id', 'password');
+  passInput.setAttribute('placeholder', 'CONTRASEÑA');
+  passInput.setAttribute('type', 'password');
   passInput.classList.add('loginInput');
   passInput.textContent = 'Password';
   const createButton = document.createElement('button');
   createButton.classList.add('loginButton');
   createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
-    console.log(registerInput.value, passInput.value);
-    createUserWithEmailAndPassword(auth, registerInput.value, passInput.value)
-      .then((userCredential) => {
-      // Signed in
-        const user = userCredential.user;
-      // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      // ..
-    });
-  });
+    createUserWithEmailAndPassword(registerInput.value, passInput.value);
+ });
   accountButtons.append(startLogo, registerInput, passInput, createButton);
   return accountButtons;
 }
