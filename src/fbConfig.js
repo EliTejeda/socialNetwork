@@ -11,17 +11,20 @@ const firebaseConfig = {
   appId: '1:929104207160:web:493523edce45a5eb54f5cd',
   measurementId: 'G-WC99VEW5LB',
 };
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth();
-createUserWithEmailAndPassword(auth, email, password)
-  .then((userCredential) => {
-    // Signed in
-    const user = userCredential.user;
-    // ...
-  })
-  .catch((error) => {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    // ..
-  });
+initializeApp(firebaseConfig);
+export const createUser = (email, password) => {
+  const auth = getAuth();
+  createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      // Signed in
+      const user = userCredential.user;
+      console.log(user);
+      // ...
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      // ..
+    });
+};

@@ -10,6 +10,7 @@ function login() {
   const loginInput = document.createElement('input');
   loginInput.classList.add('loginInput');
   loginInput.textContent = 'Usuario';
+  loginInput.setAttribute('placeholder', 'CORREO');
   const passInput = document.createElement('input');
   passInput.classList.add('loginInput');
   passInput.setAttribute('placeholder', 'CONTRASEÑA');

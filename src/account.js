@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js';//eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
+import { createUser } from './fbConfig.js';
 // eslint-disable-next-line import/no-cycle
 // import { onNavigate } from './main.js';
 
@@ -25,12 +26,12 @@ function account() {
   startLogo.src = './assets/mochilerox.svg';
   const registerInput = document.createElement('input');
   registerInput.setAttribute('id', 'user');
-  registerInput.setAttribute('placeholder', 'CORREO');
   registerInput.classList.add('loginInput');
+  registerInput.setAttribute('placeholder', 'CORREO');
   registerInput.textContent = 'Usuario';
   const passInput = document.createElement('input');
-  passInput.setAttribute('id', 'password');
   passInput.setAttribute('placeholder', 'CONTRASEÑA');
+  passInput.setAttribute('id', 'password');
   passInput.setAttribute('type', 'password');
   passInput.classList.add('loginInput');
   passInput.textContent = 'Password';
@@ -38,8 +39,8 @@ function account() {
   createButton.classList.add('loginButton');
   createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
-    createUserWithEmailAndPassword(registerInput.value, passInput.value);
- });
+    createUser(registerInput.value, passInput.value);
+  });
   accountButtons.append(startLogo, registerInput, passInput, createButton);
   return accountButtons;
 }
