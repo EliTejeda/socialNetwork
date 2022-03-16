@@ -10,9 +10,10 @@ function login() {
   const loginInput = document.createElement('input');
   loginInput.classList.add('loginInput');
   loginInput.textContent = 'Usuario';
+  loginInput.setAttribute('placeholder', 'CORREO');
   const passInput = document.createElement('input');
   passInput.classList.add('loginInput');
-  loginInput.setAttribute('placeholder', 'CORREO');
+  passInput.setAttribute('placeholder', 'CONTRASEÑA');
   passInput.textContent = 'Password';
   const loginButton = document.createElement('button');
   loginButton.classList.add('loginButton');
