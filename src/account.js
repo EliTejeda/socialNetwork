@@ -24,6 +24,12 @@ function account() {
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñe');
   startLogo.src = './assets/mochilerox.svg';
+  const userName = document.createElement('input');
+  userName.setAttribute('placeholder', 'Nombre');
+  userName.classList.add('loginInput');
+  const userLastName = document.createElement('input');
+  userLastName.setAttribute('placeholder', 'Apellido');
+  userLastName.classList.add('loginInput');
   const registerInput = document.createElement('input');
   registerInput.setAttribute('id', 'user');
   registerInput.classList.add('loginInput');
@@ -41,7 +47,7 @@ function account() {
   createButton.addEventListener('click', () => {
     createUser(registerInput.value, passInput.value);
   });
-  accountButtons.append(startLogo, registerInput, passInput, createButton);
+  accountButtons.append(startLogo, userName, userLastName, registerInput, passInput, createButton);
   return accountButtons;
 }
 
