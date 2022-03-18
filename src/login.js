@@ -19,6 +19,7 @@ function login() {
   passInput.setAttribute('type', 'password');
   const loginButton = document.createElement('button');
   loginButton.classList.add('loginButton');
+  loginInput.setAttribute('placeholder', 'CORREO');
   loginButton.textContent = 'Ingresar';
   loginButton.addEventListener('click', () => {
     loginUser(loginInput.value, passInput.value);
