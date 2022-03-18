@@ -48,7 +48,13 @@
 
 .titleStart{
   color: green;
-  margin: 0px;
+  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 35px;
+  font-style: normal;
+  font-weight: bolder;
+  
+  position: absolute;
+  top: 60%;
 }
 
 .loginButton {
