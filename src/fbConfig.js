@@ -1,5 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js';//eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAN69Jcjpn08merb6zgalYMP8kZwU9jiWg',
@@ -18,8 +19,6 @@ export const createUser = (email, password) => {
     .then((userCredential) => {
       const user = userCredential.user;
       alert('Cuenta creada con éxito!');
-      console.log(user);
-      // ...
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -49,3 +48,20 @@ export const loginUser = (email, password) => {
       const errorMessage = error.message;
     });
 };
+
+export async function createProfile(name, lastName, email, password) {
+  const db = getFirestore();
+  console.log(db);
+  try {
+    console.log('fila 56');
+    const docRef = await addDoc(collection(db, 'Prueba2'), {
+      Name: name,
+      LastName: lastName,
+      correo: email,
+      contraseña: password,
+    });
+    console.log('Document written with ID: ', docRef.id);
+  } catch (e) {
+    console.error('Error adding document: ', e);
+  }
+}
