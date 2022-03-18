@@ -6,7 +6,7 @@ function start() {
   startButtons.classList.add('startContainer');
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñe');
-  startLogo.src = './assets/mochilerox.svg';
+  startLogo.src = './assets/mochilero.png';
   const titleStart = document.createElement('h1');
   titleStart.classList.add('titleStart');
   titleStart.textContent = 'PASEITO';

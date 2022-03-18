@@ -19,7 +19,6 @@ export const createUser = (email, password) => {
       const user = userCredential.user;
       alert('Cuenta creada con éxito!');
       console.log(user);
-      // ...
     })
     .catch((error) => {
       const errorCode = error.code;

@@ -7,7 +7,7 @@ function login() {
   loginButtons.classList.add('startContainer');
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñe');
-  startLogo.src = './assets/mochilerox.svg';
+  startLogo.src = './assets/mochilero.png';
   const loginInput = document.createElement('input');
   loginInput.classList.add('loginInput');
   loginInput.textContent = 'Usuario';

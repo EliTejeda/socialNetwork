@@ -23,7 +23,7 @@ function account() {
   accountButtons.classList.add('startContainer');
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñe');
-  startLogo.src = './assets/mochilerox.svg';
+  startLogo.src = './assets/mochilero.png';
   const userName = document.createElement('input');
   userName.setAttribute('placeholder', 'Nombre');
   userName.classList.add('loginInput');
@@ -45,8 +45,8 @@ function account() {
   createButton.classList.add('loginButton');
   createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
+    document.write(createUser(registerInput.value, passInput.value));
     createUser(registerInput.value, passInput.value);
-  });
   accountButtons.append(startLogo, userName, userLastName, registerInput, passInput, createButton);
   return accountButtons;
 }

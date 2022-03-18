@@ -23,27 +23,11 @@
   
 }
 
-.inputsContainer {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    height: auto;
-    width: 100vw;
-    padding: 3em;
-    
-}
-
-.logoContainer  {
-    display: flex;
-    align-items: flex-start;
-    height: 50px;
-    
-}
-
 .logoMuñe {
-    height: 20em;
+    width: 15em;
+    margin-top: 5em;
     margin: auto;
+    
 }
 
 .titleStart{
