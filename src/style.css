@@ -5,9 +5,15 @@
  
   }
 
+body {
+    font-family: 'Cairo', sans-serif;
+    font-weight: 700;
+    color: black; 
+}
+
 #root {
     background-color: rgb(237, 245, 226);
-    color: rgb(237, 245, 226); 
+    color: rgb(237, 245, 226);
  }
 
 .startContainer {
@@ -47,7 +53,7 @@
 }
 
 .titleStart{
-  color: green;
+  color: rgb(1, 117, 1);
   font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   font-size: 35px;
   font-style: normal;
@@ -81,3 +87,69 @@
     text-align: center;
     padding: .5em;
 }
+
+.postContainer {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 3em;
+    justify-content: space-around; 
+
+}
+ .logoMuñePost{
+     max-width: 5em;
+ }
+
+ .postInput {
+     width: 70vw;
+     height:20vh;
+ }
+
+
+ .topInfo{
+    width: 100vw;
+    height: 7vh;
+    position: absolute;
+    top:0%;
+ }
+
+ 
+ .titleTop{
+    color: green;
+    font-family: 'Cairo', sans-serif;
+    
+  }
+
+.userInfo{
+    width: 100vw;
+    height: 20vh;
+    position: absolute;
+    top:8%;
+    display: flex; 
+    flex-direction: row;
+    justify-content: space-around;
+    align-items:center
+}
+.userName{
+    display: flex;
+    flex-wrap: wrap;
+    color: #F08296;
+    font-family: 'Cairo', sans-serif;
+    font-size: 25px;
+    font-style: normal;
+    font-weight: bolder;
+}
+
+ .menuPost{
+    width: 100vw;
+    height: 15vh;
+    top: 85%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    position: absolute;
+    justify-content: space-around;
+ }
