@@ -3,11 +3,13 @@
 import { start } from './start.js';
 import { login } from './login.js';
 import { account } from './account.js';
+import { post } from './post.js';
 
 const routes = { /*objeto con distintas propiedades array con 3 elementos *///eslint-disable-line
   '/': start,
   '/login': login,
   '/account': account,
+  '/post': post,
 };
 
 const rootDiv = document.getElementById('root');

@@ -1,6 +1,7 @@
-import { createUser, createProfile } from './fbConfig.js';
+import { createUser, createProfile } from './fbConfig.js'; //eslint-disable-line
+import { post } from './post.js';//eslint-disable-line
 // eslint-disable-next-line import/no-cycle
-// import { onNavigate } from './main.js';
+
 
 function account() {
   const accountButtons = document.createElement('div');
@@ -8,26 +9,39 @@ function account() {
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñe');
   startLogo.src = './assets/mochilerox.svg';
+
+  const accountForm = document.createElement('form');
+  const labelName = document.createElement('label');
+  labelName.setAttribute('for', 'accountName');
+
   const userName = document.createElement('input');
   userName.setAttribute('placeholder', 'Nombre');
+  userName.setAttribute('id', 'accountName');
   userName.classList.add('loginInput');
+
+  const labelLastName = document.createElement('label');
+  labelLastName.setAttribute('for', 'accountLastName');
+
   const userLastName = document.createElement('input');
   userLastName.setAttribute('placeholder', 'Apellido');
+  userLastName.setAttribute('id', 'accountLastName');
   userLastName.classList.add('loginInput');
+
+
   const registerInput = document.createElement('input');
   registerInput.setAttribute('id', 'user');
   registerInput.classList.add('loginInput');
   registerInput.setAttribute('placeholder', 'CORREO');
   registerInput.textContent = 'Usuario';
-  registerInput.setAttribute("placeholder", "CORREO");
+  registerInput.setAttribute('id', 'labelName');
+ 
+
   const passInput = document.createElement('input');
   passInput.setAttribute('placeholder', 'CONTRASEÑA');
   passInput.setAttribute('id', 'password');
   passInput.setAttribute('type', 'password');
   passInput.classList.add('loginInput');
   passInput.textContent = 'Password';
-  passInput.setAttribute("placeholder", "CONTRASEÑA");
-  passInput.setAttribute('type', 'password');
 
   const createButton = document.createElement('button');
   createButton.classList.add('loginButton');
@@ -36,7 +50,8 @@ function account() {
     createUser(registerInput.value, passInput.value);
     createProfile(userName.value, userLastName.value, registerInput.value, passInput.value);
   });
-  accountButtons.append(startLogo, userName, userLastName, registerInput, passInput, createButton);
+  accountButtons.append(startLogo, registerInput, passInput, accountForm, createButton);
+  accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput);
   return accountButtons;
 }
 export { account };
