@@ -1,6 +1,7 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js';//eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
 import {getFirestore, addDoc, collection} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
+import { onNavigate } from './main.js';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyAN69Jcjpn08merb6zgalYMP8kZwU9jiWg',
@@ -19,6 +20,7 @@ export const createUser = (email, password) => {
     .then((userCredential) => {
       const user = userCredential.user;
       alert('Cuenta creada con éxito!');
+      onNavigate('/login');
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -38,13 +40,14 @@ export const loginUser = (email, password) => {
   const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-    // Signed in
       const user = userCredential.user;
       console.log('logueado');
-    // ...
+      onNavigate('/');
+      e.preventDefault();
     })
     .catch((error) => {
       const errorCode = error.code;
+      console.log(errorCode);
       const errorMessage = error.message;
     });
 };
