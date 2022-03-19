@@ -19,6 +19,7 @@ export const createUser = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      console.log(user);
       alert('Cuenta creada con éxito!');
       onNavigate('/login');
     })
@@ -42,26 +43,27 @@ export const loginUser = (email, password) => {
     .then((userCredential) => {
       const user = userCredential.user;
       console.log('logueado');
-      onNavigate('/');
-      e.preventDefault();
+      console.log(user);
+      onNavigate('/post');
     })
     .catch((error) => {
       const errorCode = error.code;
       console.log(errorCode);
       const errorMessage = error.message;
+      console.log(errorMessage);
+      onNavigate('/login');
     });
 };
 
-export async function createProfile(name, lastName, email, password) {
+export async function createProfile(name, lastName) {
   const db = getFirestore();
   console.log(db);
   try {
     console.log('fila 56');
-    const docRef = await addDoc(collection(db, 'Prueba2'), {
+    const docRef = await addDoc(collection(db, 'users'), {
       Name: name,
       LastName: lastName,
-      correo: email,
-      contraseña: password,
+      Id: nickname,
     });
     console.log('Document written with ID: ', docRef.id);
   } catch (e) {
