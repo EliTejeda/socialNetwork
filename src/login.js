@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-cycle
-import { loginUser } from './fbConfig.js';
+import { loginUser, authenticUser } from './fbConfig.js';
 
 function login() {
   const loginButtons = document.createElement('div');
@@ -25,16 +25,16 @@ function login() {
   passInput.textContent = 'Password';
   passInput.setAttribute('type', 'password');
   passInput.setAttribute('id', 'labelPass');
-  
   const labelPass = document.createElement('label');
   labelPass.setAttribute('for', 'labelPass');
-
   const loginButton = document.createElement('button');
   loginButton.classList.add('loginButton');
   loginInput.setAttribute('placeholder', 'CORREO');
   loginButton.textContent = 'Ingresar';
-  loginButton.addEventListener('click', () => {
+  loginButton.addEventListener('click', (event) => {
+    event.preventDefault();
     loginUser(loginInput.value, passInput.value);
+    authenticUser(loginInput.value);
   });
   loginForm.append(labelEmail, loginInput, labelPass, passInput, loginButton);
 

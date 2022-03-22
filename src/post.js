@@ -1,4 +1,5 @@
 import { onNavigate } from './main.js'; //eslint-disable-line
+import { createPost } from './fbConfig.js'
 
 function post() {
   const postLayout = document.createElement('div');
@@ -25,11 +26,22 @@ function post() {
   const usersPosts = document.createElement('input');
   usersPosts.setAttribute('placeholder', 'Aquí se verán los posts');
   usersPosts.classList.add('postInput');
+  const buttonPost = document.createElement('button');
+  buttonPost.classList.add('loginButton');
+  buttonPost.addEventListener('click', (event) => {
+    createPost(usersPosts.value);
+    event.preventDefault();
+  });
 
- /*  const createPost = document.createElement('input');
-  createPost.setAttribute('placeholder', 'Post');
-  createPost.classList.add('postInput'); */
+  const postNode = document.createElement('div');
+  postNode.classList.add('post');
+  const renderPost = document.createElement('p');
 
+/*   getPosts().then((posts) => {
+  console.log(posts[0].innerHTML);
+  renderPost.innerHTML = posts[0].innerHTML;
+  });
+ */
   const menuPost = document.createElement('section');
   menuPost.classList.add('menuPost');
 
@@ -42,17 +54,17 @@ function post() {
   });
 
   const searchpostIcon = document.createElement('img');
-  searchpostIcon.classList.add('logoMuñePost');
+  searchpostIcon.classList.add('lupaPost');
   searchpostIcon.src = './assets/lupa.png';
   searchpostIcon.addEventListener('click', () => {
-    alert ('hola')
+    alert('hola');
   });
 
   const createpostIcon = document.createElement('img');
-  createpostIcon.classList.add('logoMuñePost');
+  createpostIcon.classList.add('lupaPost');
   createpostIcon.src = './assets/addicon.png';
   createpostIcon.addEventListener('click', () => {
-    alert ('hola')
+    alert('hola');
   });
 
   //MONITA
@@ -63,7 +75,8 @@ function post() {
   topInfo.append(titleTop);
   userInfo.append(imgProfile, userName);
   menuPost.append(returnstartIcon, searchpostIcon, createpostIcon, startLogo);
-  postLayout.append(topInfo, userInfo, usersPosts, menuPost);
+  postLayout.append(topInfo, userInfo, usersPosts, menuPost, postNode, buttonPost);
+  postNode.append(renderPost);
   return postLayout;
 }
 export { post };

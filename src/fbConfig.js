@@ -1,5 +1,5 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js';//eslint-disable-line
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
 import {getFirestore, addDoc, collection} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 import { onNavigate } from './main.js';
 
@@ -41,9 +41,7 @@ export const loginUser = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log('logueado');
-      onNavigate('/');
-      e.preventDefault();
+      onNavigate('/post');
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -52,18 +50,50 @@ export const loginUser = (email, password) => {
     });
 };
 
+let userId = '';
+let mail = '';
+export function authenticUser() {
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      userId = user.uid;
+      mail = user.email;
+      console.log(mail);
+    } else if (user === null) {
+      console.log('no logueado');
+      onNavigate('/');
+    }
+  });
+}
+authenticUser();
+
 export async function createProfile(name, lastName, email, password) {
   const db = getFirestore();
   console.log(db);
   try {
-    console.log('fila 56');
-    const docRef = await addDoc(collection(db, 'Prueba2'), {
+    const docRef = await addDoc(collection(db, 'users'), {
       Name: name,
       LastName: lastName,
       correo: email,
       contraseña: password,
     });
     console.log('Document written with ID: ', docRef.id);
+  } catch (e) {
+    console.error('Error adding document: ', e);
+  }
+}
+
+export async function createPost(post) {
+  const db = getFirestore();
+  try {
+    const docRef = await addDoc(collection(db, 'Post'), {
+      Post: post,
+      Uid: userId,
+      Email: mail,
+    });
+    console.log('Document written with ID: ', docRef.id);
+    console.log(userId);
+    console.log(docRef);
   } catch (e) {
     console.error('Error adding document: ', e);
   }
