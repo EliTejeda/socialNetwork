@@ -1,10 +1,24 @@
 import { createUser, createProfile } from './fbConfig.js'; //eslint-disable-line
-import { post } from './post.js';//eslint-disable-line
+import { post } from './post.js'; //eslint-disable-line
+import { onNavigate } from './main.js'; //eslint-disable-line
 // eslint-disable-next-line import/no-cycle
 
 function account() {
   const accountButtons = document.createElement('div');
   accountButtons.classList.add('startContainer');
+  const topInfo = document.createElement('section');
+  topInfo.classList.add('topInfo');
+  const titleTop = document.createElement('h1');
+  titleTop.classList.add('titleTop');
+  titleTop.textContent = 'PASEITO';
+
+  const returnstartIcon = document.createElement('img');
+  returnstartIcon.classList.add('logoHome');
+  returnstartIcon.src = './assets/home.png';
+  returnstartIcon.addEventListener('click', () => {
+    onNavigate('/');
+  });
+
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñe');
   startLogo.src = './assets/mochilerox.svg';
@@ -25,24 +39,29 @@ function account() {
   const registerInput = document.createElement('input');
   registerInput.setAttribute('id', 'user');
   registerInput.classList.add('loginInput');
-  registerInput.setAttribute('placeholder', 'CORREO');
+  registerInput.setAttribute('placeholder', 'Correo');
   registerInput.textContent = 'Usuario';
   registerInput.setAttribute('id', 'labelName');
   const passInput = document.createElement('input');
-  passInput.setAttribute('placeholder', 'CONTRASEÑA');
+  passInput.setAttribute('placeholder', 'Contraseña');
   passInput.setAttribute('id', 'password');
   passInput.setAttribute('type', 'password');
   passInput.classList.add('loginInput');
   passInput.textContent = 'Password';
   const createButton = document.createElement('button');
   createButton.classList.add('loginButton');
-  createButton.textContent = 'Crear';
+  createButton.textContent = 'CREAR';
   createButton.addEventListener('click', () => {
     document.write(createUser(registerInput.value, passInput.value));
     createUser(registerInput.value, passInput.value);
+<<<<<<< HEAD
     createProfile(userName.value, userLastName.value);
+=======
+    createProfile(userName.value, userLastName.value, registerInput.value);
+>>>>>>> 3d00b56533530488d863d7a0f848cf279399a3f2
   });
-  accountButtons.append(startLogo, registerInput, passInput, accountForm, createButton);
+  topInfo.append(titleTop, returnstartIcon);
+  accountButtons.append(topInfo, startLogo, registerInput, passInput, accountForm, createButton);
   accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput);
   return accountButtons;
 }

@@ -1,4 +1,5 @@
 import { onNavigate } from './main.js'; //eslint-disable-line
+import { createPost, getPosts } from './fbConfig.js'
 
 function post() {
   const postLayout = document.createElement('div');
@@ -11,6 +12,13 @@ function post() {
   titleTop.classList.add('titleTop');
   titleTop.textContent = 'PASEITO';
 
+  const returnstartIcon = document.createElement('img');
+  returnstartIcon.classList.add('logoHome');
+  returnstartIcon.src = './assets/home.png';
+  returnstartIcon.addEventListener('click', () => {
+    onNavigate('/');
+  });
+
   //Mostrar nombre del usuario
   const userInfo = document.createElement('section');
   userInfo.classList.add('userInfo');
@@ -21,52 +29,63 @@ function post() {
   userName.classList.add('userName');
   userName.textContent = 'Angela Rivadeneira';
 
-  //Mostrar post de usuarios
-  const renderPosts = document.createElement('section');
-  renderPosts.classList.add('posts');
-  const usersPosts = document.createElement('input');
-  usersPosts.setAttribute('placeholder', 'Aquí ENTRARÁN los posts');
-  usersPosts.classList.add('postInput');
+  const postNode = document.createElement('section');
+  postNode.classList.add('post');
+  const renderPost = document.createElement('p');
 
- /*  const createPost = document.createElement('input');
-  createPost.setAttribute('placeholder', 'Post');
-  createPost.classList.add('postInput'); */
+  getPosts().then((posts) => {
+    let onlyHTML = '';
+    posts.forEach((postsUsers) => {
+      onlyHTML += postsUsers.innerHTML;
+    });
+    postNode.innerHTML = onlyHTML;
+  });
 
   const menuPost = document.createElement('section');
   menuPost.classList.add('menuPost');
 
-  //Barra imagenes de opciones
+  /* //Barra imagenes de opciones
   const returnstartIcon = document.createElement('img');
   returnstartIcon.classList.add('logoMuñePost');
   returnstartIcon.src = './assets/home.png';
   returnstartIcon.addEventListener('click', () => {
     onNavigate('/');
   });
-
+ */
   const searchpostIcon = document.createElement('img');
   searchpostIcon.classList.add('lupaPost');
   searchpostIcon.src = './assets/lupa.png';
   searchpostIcon.addEventListener('click', () => {
-    alert ('hola')
+    alert('hola');
   });
 
   const createpostIcon = document.createElement('img');
-  createpostIcon.classList.add('logoMuñePost');
+  createpostIcon.classList.add('lupaPost');
   createpostIcon.src = './assets/addicon.png';
+  const newPostcontainer = document.createElement('div');
   createpostIcon.addEventListener('click', () => {
-    alert ('hola')
+    newPostcontainer.classList.add('newPostInput');
+    const usersPosts = document.createElement('input');
+    usersPosts.setAttribute('placeholder', 'Ingresa nuevo post');
+    usersPosts.classList.add('postInput');
+    const buttonPost = document.createElement('button');
+    buttonPost.classList.add('loginButton');
+    buttonPost.addEventListener('click', (event) => {
+      createPost(usersPosts.value);
+      event.preventDefault();
+    });
+    newPostcontainer.append(usersPosts, buttonPost);
   });
-
   //MONITA
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñePost');
   startLogo.src = './assets/paseitologo.png';
 
-  topInfo.append(titleTop);
+  topInfo.append(titleTop, returnstartIcon);
   userInfo.append(imgProfile, userName);
-  menuPost.append(returnstartIcon, searchpostIcon, createpostIcon, startLogo);
-  postLayout.append(topInfo, userInfo, renderPosts, menuPost);
-  renderPosts.append(usersPosts);
+  postNode.append(renderPost);
+  menuPost.append(searchpostIcon, createpostIcon, startLogo);
+  postLayout.append(topInfo, userInfo, menuPost, postNode, newPostcontainer);
   return postLayout;
 }
 export { post };
