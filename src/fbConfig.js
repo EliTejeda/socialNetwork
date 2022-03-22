@@ -48,9 +48,16 @@ export const loginUser = (email, password) => {
     })
     .catch((error) => {
       const errorCode = error.code;
+      if (errorCode === 'auth/invalid-email') {
+        alert('email invalido');
+      } else if (errorCode === 'auth/wrong-password') {
+        alert('contraseña erronea');
+      } else if (errorCode === 'auth/missing-email') {
+        alert('falta correo');
+      } else if (errorCode === 'auth/internal-error') {
+        alert('falta contraseña');
+      }
       console.log(errorCode);
-      const errorMessage = error.message;
-      console.log(errorMessage);
       onNavigate('/login');
     });
 };

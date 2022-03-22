@@ -22,8 +22,10 @@ function post() {
   userName.textContent = 'Angela Rivadeneira';
 
   //Mostrar post de usuarios
+  const renderPosts = document.createElement('section');
+  renderPosts.classList.add('posts');
   const usersPosts = document.createElement('input');
-  usersPosts.setAttribute('placeholder', 'Aquí se verán los posts');
+  usersPosts.setAttribute('placeholder', 'Aquí ENTRARÁN los posts');
   usersPosts.classList.add('postInput');
 
  /*  const createPost = document.createElement('input');
@@ -42,7 +44,7 @@ function post() {
   });
 
   const searchpostIcon = document.createElement('img');
-  searchpostIcon.classList.add('logoMuñePost');
+  searchpostIcon.classList.add('lupaPost');
   searchpostIcon.src = './assets/lupa.png';
   searchpostIcon.addEventListener('click', () => {
     alert ('hola')
@@ -63,7 +65,8 @@ function post() {
   topInfo.append(titleTop);
   userInfo.append(imgProfile, userName);
   menuPost.append(returnstartIcon, searchpostIcon, createpostIcon, startLogo);
-  postLayout.append(topInfo, userInfo, usersPosts, menuPost);
+  postLayout.append(topInfo, userInfo, renderPosts, menuPost);
+  renderPosts.append(usersPosts);
   return postLayout;
 }
 export { post };

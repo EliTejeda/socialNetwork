@@ -9,6 +9,7 @@ function account() {
   startLogo.classList.add('logoMuñe');
   startLogo.src = './assets/mochilerox.svg';
   const accountForm = document.createElement('form');
+  accountForm.classList.add('loginForm');
   const labelName = document.createElement('label');
   labelName.setAttribute('for', 'accountName');
   const userName = document.createElement('input');
