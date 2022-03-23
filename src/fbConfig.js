@@ -45,18 +45,10 @@ export const loginUser = (email, password) => {
     })
     .catch((error) => {
       const errorCode = error.code;
-      if (errorCode === 'auth/invalid-email') {
-        alert('email invalido');
-      } else if (errorCode === 'auth/wrong-password') {
-        alert('contraseña invalida');
-      } else if (errorCode === 'auth/missing-email') {
-        alert('falta correo');
-      } else if (errorCode === 'auth/internal-error') {
-        alert('falta contraseña');
-      } else if (errorCode === 'auth/user-not-found') {
-        alert('Usuario no encontrado');
-      }
       console.log(errorCode);
+      const errorMessage = error.message;
+      console.log(errorMessage);
+      onNavigate('/login');
     });
 };
 
@@ -68,28 +60,44 @@ export function authenticUser() {
     if (user) {
       currentUserid = user.uid;
       currentUsermail = user.email;
-      console.log(user);
     } else if (user === null) {
       console.log('no logueado');
       onNavigate('/');
     }
   });
 }
-/* export async function getCurrentuser() {
-  const db = getFirestore();
-  const eachpost = [];
-  const querySnapshot = await getDocs(collection(db, 'Post'));
-  querySnapshot.forEach((doc) => {
-    const currentUser = doc.data().Uid;
-    console.log(currentUser);
-    const onepost = doc.data().Post;
-    const published = document.createElement('p');
-    published.textContent = onepost;
-    console.log(eachpost);
-    eachpost.push(published);
-  });
-  return eachpost;
+/* const auth = getAuth();
+const usercurrent = auth.currentUser;
+console.log(usercurrent);
+if (usercurrent !== null) {
+  // The user object has basic properties such as display name, email, etc.
+  const displayName = usercurrent.displayName;
+  console.log(displayName);
+  const email = usercurrent.email;
+  console.log(email);
+  // The user's ID, unique to the Firebase project. Do NOT use
+  // this value to authenticate with your backend server, if
+  // you have one. Use User.getToken() instead.
+  const uid = usercurrent.uid;
 } */
+/* export async function getName() {
+  const db = getFirestore();
+  let userName = [];
+  const querySnapshot = await getDocs(collection(db, 'users'));
+  querySnapshot.forEach((doc) => {
+    console.log(mail);
+    console.log(doc.data().correo);
+    if (doc.data().correo === mail) {
+      console.log("lo encontré");
+      console.log(doc.data().Name + ' ' + doc.data().LastName);
+      userName = doc.Uid;
+      console.log(doc.data());
+    } else {
+      console.log("no está");
+    }
+  });
+}
+getName(); */
 
 export async function createProfile(name, lastName, email) {
   const db = getFirestore();
@@ -99,10 +107,11 @@ export async function createProfile(name, lastName, email) {
       LastName: lastName,
       correo: email,
     });
-    console.log('Document written with ID: ', docRef.id);
+    console.log('Document written with ID: ', docRef.Name);
     onNavigate('/login');
   } catch (e) {
     console.error('Error adding document: ', e);
+    onNavigate('/account');
   }
 }
 
@@ -128,7 +137,6 @@ export async function getPosts() {
   const querySnapshot = await getDocs(collection(db, 'Post'));
   querySnapshot.forEach((doc) => {
     const currentUser = doc.data().Uid;
-    console.log(currentUser);
     const onepost = doc.data().Post;
     const published = document.createElement('p');
     published.textContent = onepost;
