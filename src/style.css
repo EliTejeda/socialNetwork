@@ -52,12 +52,12 @@ body {
     width: 15em;
     margin-top: 5em;
     margin: 0px;
-    align-self: center;    
+    align-self: center;
 }
 
 .titleStart{
-  color: #6191da;
-  font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  color: #131e2e;
+  font-family:Cairo,sans-serif;
   font-size: 35px;
   font-style: normal;
   font-weight: bolder;
@@ -90,7 +90,7 @@ body {
     height: 6vh;
     width: 60vw;
     border-radius: 10px;
-    background-color: #d5d5d8;
+    background-color: #b8dbc7;
     box-shadow: 8px 5px 5px rgb(125, 125, 126) ;
     margin: auto;
     text-align: center;
@@ -122,9 +122,14 @@ body {
      width:3.5em;
  }
 
+.sendiconPost{
+    width:2em;
+    
+ }
+
 .postInput {
      margin-top: 20px;
-     width: 70vw;
+     width: 50vw;
      padding: 10px;
      border: solid .1px green;
      height:fit-content;
@@ -133,8 +138,8 @@ body {
 
 
  .topInfo{
-    width: 80vw;
-    height: 7vh;
+    width: 95vw;
+    height: 10vh;
     position: absolute;
     top:1%;
     display: flex;
@@ -150,22 +155,22 @@ body {
 
  
  .titleTop{
-    color: #4580d8;
+    color: #052658;
     font-family: 'Cairo', sans-serif;
     
   }
 
 .userInfo{
-    width: 80vw;
-    height: 20vh;
+    width: 95vw;
+    height: 15vh;
     position: absolute;
-    top:8%;
+    top:10%;
     display: flex; 
     flex-direction: row;
     justify-content: space-around;
     align-items:center;
     border: solid 1px rgb(21, 71, 1);
-    background-color: rgb(201, 245, 207);
+    background-color: #F08296;
     box-shadow: 8px 5px 5px rgb(125, 125, 126); 
     
 }
@@ -186,7 +191,7 @@ body {
  .menuPost{
     width: 100vw;
     height: 15vh;
-    top: 80%;
+    top: 85%;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -194,8 +199,45 @@ body {
     position: absolute;
     justify-content: space-around;
  }
- .post{
+ .oldPost{
+    width: 100vw;
+    height: 40vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
     color:black;
+    background-color: rgb(222, 245, 225);
+    box-shadow: 8px 5px 5px rgb(125, 125, 126); 
+    contain: content; 
+    overflow: scroll;  
+    align-items: center;
+    justify-content: center;
+}
+.newPostInput{
+    width: 90vw;
+    height: 10vh;
+    top: 70%;
+   position: absolute;
+   display: flex;
+   flex-direction: row;
+   flex-wrap: nowrap;
+   align-items: center;
+   position: absolute;
+   justify-content: space-around;
+}
+
+p {
+    width: 90vw;
+    height: 8vh; 
+    border: solid 1px rgb(21, 71, 1);
+    background-color: rgb(253, 253, 253);
+    align-self: center;  
+    margin: auto;
+}
+
+.eachOldPost{
+    height: 15em;
+    background-color: #390992;
 }
 
 
@@ -252,7 +294,7 @@ body {
     }
     .titleStart{
         color: #4580d8;
-        font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+        font-family:Cairo,sans-serif;
         font-size: 7vh;
         font-style: normal;
         font-weight: bolder;

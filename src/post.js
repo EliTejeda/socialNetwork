@@ -30,28 +30,19 @@ function post() {
   userName.textContent = 'Angela Rivadeneira';
 
   const postNode = document.createElement('section');
-  postNode.classList.add('post');
-  const renderPost = document.createElement('p');
+  postNode.classList.add('oldPost');
 
+  const renderPost = document.createElement('section');
   getPosts().then((posts) => {
-    let onlyHTML = '';
     posts.forEach((postsUsers) => {
-      onlyHTML += postsUsers.innerHTML;
+      console.log(postsUsers);
+      renderPost.append(postsUsers);
     });
-    postNode.innerHTML = onlyHTML;
   });
 
   const menuPost = document.createElement('section');
   menuPost.classList.add('menuPost');
 
-  /* //Barra imagenes de opciones
-  const returnstartIcon = document.createElement('img');
-  returnstartIcon.classList.add('logoMuñePost');
-  returnstartIcon.src = './assets/home.png';
-  returnstartIcon.addEventListener('click', () => {
-    onNavigate('/');
-  });
- */
   const searchpostIcon = document.createElement('img');
   searchpostIcon.classList.add('lupaPost');
   searchpostIcon.src = './assets/lupa.png';
@@ -62,17 +53,19 @@ function post() {
   const createpostIcon = document.createElement('img');
   createpostIcon.classList.add('lupaPost');
   createpostIcon.src = './assets/addicon.png';
-  const newPostcontainer = document.createElement('div');
+  const newPostcontainer = document.createElement('section');
   createpostIcon.addEventListener('click', () => {
     newPostcontainer.classList.add('newPostInput');
     const usersPosts = document.createElement('input');
     usersPosts.setAttribute('placeholder', 'Ingresa nuevo post');
     usersPosts.classList.add('postInput');
-    const buttonPost = document.createElement('button');
-    buttonPost.classList.add('loginButton');
+    const buttonPost = document.createElement('img');
+    buttonPost.classList.add('sendiconPost');
+    buttonPost.src = './assets/sendicon.png';
     buttonPost.addEventListener('click', (event) => {
       createPost(usersPosts.value);
       event.preventDefault();
+      alert('Post creado');
     });
     newPostcontainer.append(usersPosts, buttonPost);
   });
