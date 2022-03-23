@@ -1,5 +1,4 @@
-// eslint-disable-next-line import/no-cycle
-import { loginUser, authenticUser } from './fbConfig.js';
+import { loginUser, authenticUser } from './fbConfig.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 function login() {
