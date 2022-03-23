@@ -54,11 +54,7 @@ function account() {
   createButton.addEventListener('click', () => {
     document.write(createUser(registerInput.value, passInput.value));
     createUser(registerInput.value, passInput.value);
-<<<<<<< HEAD
-    createProfile(userName.value, userLastName.value);
-=======
     createProfile(userName.value, userLastName.value, registerInput.value);
->>>>>>> 3d00b56533530488d863d7a0f848cf279399a3f2
   });
   topInfo.append(titleTop, returnstartIcon);
   accountButtons.append(topInfo, startLogo, registerInput, passInput, accountForm, createButton);
