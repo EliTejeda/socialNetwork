@@ -1,4 +1,4 @@
-import { loginUser, authenticUser } from './fbConfig.js'; //eslint-disable-line
+import { loginUser, authenticUser, loginGoogle} from './fbConfig.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 function login() {
@@ -21,18 +21,14 @@ function login() {
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñe');
   startLogo.src = './assets/mochilerox.svg';
-
   const loginForm = document.createElement('form');
   loginForm.classList.add('loginForm');
-
   const labelEmail = document.createElement('label');
   labelEmail.setAttribute('for', 'loginEmail');
-
   const loginInput = document.createElement('input');
   loginInput.classList.add('loginInput');
   loginInput.setAttribute('placeholder', 'Correo');
   loginInput.setAttribute('id', 'loginEmail');
-
   const passInput = document.createElement('input');
   passInput.classList.add('loginInput');
   passInput.setAttribute('placeholder', 'Contraseña');
@@ -50,9 +46,15 @@ function login() {
     loginUser(loginInput.value, passInput.value);
     authenticUser(loginInput.value);
   });
+  const googleButton = document.createElement('img');
+  googleButton.classList.add('logoMuñePost');
+  googleButton.src = './assets/google.png';
+  googleButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    loginGoogle();
+  });
+  loginForm.append(labelEmail, loginInput, labelPass, passInput, loginButton, googleButton);
   topInfo.append(titleTop, returnstartIcon);
-  loginForm.append(topInfo, labelEmail, loginInput, labelPass, passInput, loginButton);
-
   loginButtons.append(startLogo, loginForm);
   return loginButtons;
 }

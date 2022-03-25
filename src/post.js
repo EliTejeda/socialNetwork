@@ -1,5 +1,5 @@
 import { onNavigate } from './main.js'; //eslint-disable-line
-import { createPost, getPosts } from './fbConfig.js'
+import { createPost, getPosts, logoutUser } from './fbConfig.js'
 
 function post() {
   const postLayout = document.createElement('div');
@@ -16,6 +16,14 @@ function post() {
   returnstartIcon.classList.add('logoHome');
   returnstartIcon.src = './assets/home.png';
   returnstartIcon.addEventListener('click', () => {
+    onNavigate('/');
+  });
+
+  const exitIcon = document.createElement('img');
+  exitIcon.classList.add('logoHome');
+  exitIcon.src = './assets/exit.png';
+  exitIcon.addEventListener('click', () => {
+    logoutUser();
     onNavigate('/');
   });
 
@@ -59,22 +67,28 @@ function post() {
     const usersPosts = document.createElement('input');
     usersPosts.setAttribute('placeholder', 'Ingresa nuevo post');
     usersPosts.classList.add('postInput');
+    const place = document.createElement('input');
+    usersPosts.setAttribute('placeholder', 'Lugar');
+    const hours = document.createElement('input');
+    hours.setAttribute('placeholder', 'Lugar');
+    const money = document.createElement('input');
+    money.setAttribute('placeholder', 'Lugar');
     const buttonPost = document.createElement('img');
     buttonPost.classList.add('sendiconPost');
     buttonPost.src = './assets/sendicon.png';
     buttonPost.addEventListener('click', (event) => {
-      createPost(usersPosts.value);
+      createPost(usersPosts.value, place.value, hours.value, money.value);
       event.preventDefault();
       alert('Post creado');
     });
-    newPostcontainer.append(usersPosts, buttonPost);
+    newPostcontainer.append(usersPosts, place, hours, money, buttonPost);
   });
   //MONITA
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñePost');
   startLogo.src = './assets/paseitologo.png';
 
-  topInfo.append(titleTop, returnstartIcon);
+  topInfo.append(titleTop, returnstartIcon, exitIcon);
   userInfo.append(imgProfile, userName);
   postNode.append(renderPost);
   menuPost.append(searchpostIcon, createpostIcon, startLogo);

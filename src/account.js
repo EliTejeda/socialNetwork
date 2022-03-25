@@ -1,4 +1,4 @@
-import { createUser, createProfile } from './fbConfig.js'; //eslint-disable-line
+import { createUser, createProfile} from './fbConfig.js'; //eslint-disable-line
 import { post } from './post.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 // eslint-disable-next-line import/no-cycle
@@ -52,8 +52,9 @@ function account() {
   createButton.classList.add('loginButton');
   createButton.textContent = 'CREAR';
   createButton.addEventListener('click', () => {
-    createUser(registerInput.value, passInput.value);
+    document.write(createUser(registerInput.value, passInput.value));
     createProfile(userName.value, userLastName.value, registerInput.value);
+    createUser(registerInput.value, passInput.value, userName.value);
   });
   topInfo.append(titleTop, returnstartIcon);
   accountButtons.append(topInfo, startLogo, registerInput, passInput, accountForm, createButton);

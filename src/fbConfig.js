@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'; //eslint-disable-line
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
-import {getFirestore, addDoc, collection, getDocs} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, query, where} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 const firebaseConfig = {
@@ -14,11 +14,18 @@ const firebaseConfig = {
   measurementId: 'G-WC99VEW5LB',
 };
 initializeApp(firebaseConfig);
+const db = getFirestore();
+const auth = getAuth();
+let docId = '';
+let currentUserid = '';
+let currentUsermail = '';
+let currentName = '';
+
 export const createUser = (email, password) => {
-  const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
+      console.log(user);
       alert('Cuenta creada con éxito!');
       onNavigate('/login');
     })
@@ -35,113 +42,125 @@ export const createUser = (email, password) => {
       }
     });
 };
-
-export const loginUser = (email, password) => {
-  const auth = getAuth();
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      const user = userCredential.user;
-      onNavigate('/post');
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      console.log(errorCode);
-      const errorMessage = error.message;
-      console.log(errorMessage);
-      onNavigate('/login');
-    });
-};
-
-let currentUserid = '';
-let currentUsermail = '';
 export function authenticUser() {
-  const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
+      console.log(user);
       currentUserid = user.uid;
       currentUsermail = user.email;
+      console.log(currentUsermail);
     } else if (user === null) {
       console.log('no logueado');
       onNavigate('/');
     }
   });
 }
-/* const auth = getAuth();
-const usercurrent = auth.currentUser;
-console.log(usercurrent);
-if (usercurrent !== null) {
-  // The user object has basic properties such as display name, email, etc.
-  const displayName = usercurrent.displayName;
-  console.log(displayName);
-  const email = usercurrent.email;
-  console.log(email);
-  // The user's ID, unique to the Firebase project. Do NOT use
-  // this value to authenticate with your backend server, if
-  // you have one. Use User.getToken() instead.
-  const uid = usercurrent.uid;
-} */
-/* export async function getName() {
-  const db = getFirestore();
-  let userName = [];
-  const querySnapshot = await getDocs(collection(db, 'users'));
-  querySnapshot.forEach((doc) => {
-    console.log(mail);
-    console.log(doc.data().correo);
-    if (doc.data().correo === mail) {
-      console.log("lo encontré");
-      console.log(doc.data().Name + ' ' + doc.data().LastName);
-      userName = doc.Uid;
-      console.log(doc.data());
-    } else {
-      console.log("no está");
-    }
+
+export const loginUser = (email, password) => {
+  signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+      console.log(userCredential);
+      onNavigate('/post');
+    })
+    .catch((error) => {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+    });
+};
+loginUser();
+
+export const logoutUser = () => {
+  signOut(auth).then(() => {
+    alert('Gracias');
+  }).catch((error) => {
+  // An error happened.
   });
-}
-getName(); */
+};
 
 export async function createProfile(name, lastName, email) {
-  const db = getFirestore();
   try {
     const docRef = await addDoc(collection(db, 'users'), {
       Name: name,
       LastName: lastName,
       correo: email,
+      docName: docId,
     });
+    docId = docRef.id;
     console.log('Document written with ID: ', docRef.Name);
     onNavigate('/login');
   } catch (e) {
     console.error('Error adding document: ', e);
+    console.log(console.error);
     onNavigate('/account');
   }
 }
 
-export async function createPost(post) {
-  const db = getFirestore();
+export async function createPost(post, place, hours, money) {
   try {
     const docRef = await addDoc(collection(db, 'Post'), {
       Post: post,
+      Place: place,
+      Hours: hours,
+      Money: money,
       Uid: currentUserid,
       Email: currentUsermail,
     });
     console.log('Document written with ID: ', docRef.id);
-    console.log(currentUserid);
-    console.log(docRef);
   } catch (e) {
     console.error('Error adding document: ', e);
   }
 }
 
 export async function getPosts() {
-  const db = getFirestore();
   const eachpost = [];
   const querySnapshot = await getDocs(collection(db, 'Post'));
-  querySnapshot.forEach((doc) => {
-    const currentUser = doc.data().Uid;
-    const onepost = doc.data().Post;
+  querySnapshot.forEach((onedoc) => {
+    const onepost = onedoc.data().Post;
     const published = document.createElement('p');
     published.textContent = onepost;
-    console.log(eachpost);
     eachpost.push(published);
   });
   return eachpost;
 }
+const name = [];
+export async function getName() {
+/*  const querySnapshot = await getDocs(collection(db, 'users'));
+  const userscoll = collection(db, 'users'); */
+  const q = query(collection(db, 'users'), where('correo', '==', currentUsermail));
+  console.log(q);
+  const querySnapshot = await getDocs(q);
+  console.log(querySnapshot);
+  querySnapshot.forEach((doc) => {
+    console.log(doc.id, ' => ', doc.data());
+  });
+}
+getName();
+
+
+
+
+
+export const loginGoogle = () => {
+  const provider = new GoogleAuthProvider();
+  signInWithPopup(auth, provider)
+  //signInWithRedirect(auth, provider)
+    .then((result) => {
+      console.log('logeadoGoogle');
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      console.log(credential);
+      // The signed-in user info.
+      const user = result.user;
+      console.log(user);
+      onNavigate('/post');
+    }).catch((error) => {
+      console.log(user, error);
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      // The email of the user's account used.
+      const email = error.email;
+      // The AuthCredential type that was used.
+      const credential = GoogleAuthProvider.credentialFromError(error);
+    });
+};
