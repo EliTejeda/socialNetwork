@@ -18,6 +18,10 @@ body {
   
  }
 
+ .logoHome{
+    max-width: 3em;
+}
+
 .startContainer {
     width: 100vw;
     height: 100vh;
@@ -129,7 +133,7 @@ body {
 
 .postInput {
      margin-top: 20px;
-     width: 50vw;
+     width: 90vw;
      padding: 10px;
      border: solid .1px green;
      height:fit-content;

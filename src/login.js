@@ -1,4 +1,4 @@
-import { loginUser, authenticUser } from './fbConfig.js'; //eslint-disable-line
+import { loginUser, authenticUser, loginGoogle} from './fbConfig.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 function login() {
@@ -46,9 +46,15 @@ function login() {
     loginUser(loginInput.value, passInput.value);
     authenticUser(loginInput.value);
   });
+  const googleButton = document.createElement('img');
+  googleButton.classList.add('logoMuñePost');
+  googleButton.src = './assets/google.png';
+  googleButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    loginGoogle();
+  });
+  loginForm.append(labelEmail, loginInput, labelPass, passInput, loginButton, googleButton);
   topInfo.append(titleTop, returnstartIcon);
-  loginForm.append(topInfo, labelEmail, loginInput, labelPass, passInput, loginButton);
-
   loginButtons.append(startLogo, loginForm);
   return loginButtons;
 }
