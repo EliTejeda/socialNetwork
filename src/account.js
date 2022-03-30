@@ -5,12 +5,12 @@ import { onNavigate } from './main.js'; //eslint-disable-line
 
 function account() {
   const accountButtons = document.createElement('div');
-  accountButtons.classList.add('startContainer');
+  accountButtons.classList.add('startContaineraccount');
   const topInfo = document.createElement('section');
   topInfo.classList.add('topInfo');
-  const titleTop = document.createElement('h1');
+  const titleTop = document.createElement('img');
   titleTop.classList.add('titleTop');
-  titleTop.textContent = 'PASEITO';
+  titleTop.src = './assets/Paseito.png';
 
   const returnstartIcon = document.createElement('img');
   returnstartIcon.classList.add('logoHome');
@@ -20,8 +20,10 @@ function account() {
   });
 
   const startLogo = document.createElement('img');
-  startLogo.classList.add('logoMuñe');
-  startLogo.src = './assets/mochilerox.svg';
+  startLogo.classList.add('logoMuñelogin');
+  startLogo.src = './assets/mochilero_-orig.png';
+  const accountContainer = document.createElement('div');
+  accountContainer.classList.add('accountContainer');
   const accountForm = document.createElement('form');
   accountForm.classList.add('loginForm');
   const labelName = document.createElement('label');
@@ -50,15 +52,16 @@ function account() {
   passInput.textContent = 'Password';
   const createButton = document.createElement('button');
   createButton.classList.add('loginButton');
-  createButton.textContent = 'CREAR';
+  createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
     document.write(createUser(registerInput.value, passInput.value));
     createProfile(userName.value, userLastName.value, registerInput.value);
     createUser(registerInput.value, passInput.value, userName.value);
   });
   topInfo.append(titleTop, returnstartIcon);
-  accountButtons.append(topInfo, startLogo, registerInput, passInput, accountForm, createButton);
-  accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput);
+  accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput, createButton);
+  accountContainer.append(accountForm);
+  accountButtons.append(topInfo, startLogo, accountContainer);
   return accountButtons;
 }
 export { account };
