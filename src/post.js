@@ -1,5 +1,5 @@
 import { onNavigate } from './main.js'; //eslint-disable-line
-import { createPost, getPosts, logoutUser, aLike} from './fbConfig.js'//eslint-disable-line
+import { createPost, getPosts, logoutUser, aLike, deletePost, editPost} from './fbConfig.js'//eslint-disable-line
 
 function post() {
   const postLayout = document.createElement('div');
@@ -44,7 +44,7 @@ function post() {
     posts.forEach((postsUsers) => {
       const eachPost = document.createElement('div');
       eachPost.classList.add('post');
-      let postone = document.createElement('p');
+      const postone = document.createElement('p');
       postone.textContent = postsUsers[0];
       const postmoney = document.createElement('p');
       postmoney.textContent = postsUsers[2];
@@ -64,11 +64,30 @@ function post() {
       imgEdit.classList.add('like');
       imgEdit.src = './assets/lapiz.png';
       imgEdit.addEventListener('click', () => {
-        postone.setAttribute('type', 'input');
-        /* editPost(postsUsers[5], postone.value); */
+        const editContainer = document.createElement('div');
+        editContainer.classList.add('editContainer');
+        const editInput = document.createElement('input');
+        editInput.classList.add('editInput');
+        editInput.textContent = postsUsers[5];
+        const buttonSend = document.createElement('img');
+        buttonSend.classList.add('sendiconPost');
+        buttonSend.src = './assets/sendicon.png';
+        postone.append(buttonSend);
+        buttonSend.addEventListener('click', () => {
+          editPost(postsUsers[5], editInput.value);
+          onNavigate('/post');
+        });
+        editContainer.append(editInput, buttonSend);
+        postone.append(editContainer);
+      });
+      const imgDelete = document.createElement('img');
+      imgDelete.classList.add('like');
+      imgDelete.src = './assets/eraser_icon._blue.png';
+      imgDelete.addEventListener('click', () => {
+        deletePost(postsUsers[5]);
       });
 
-      eachPost.append(postone, postmoney, postplace, postlike, imgEdit);
+      eachPost.append(postone, postmoney, postplace, postlike, imgEdit, imgDelete);
       renderPost.append(eachPost);
     });
   });
@@ -105,6 +124,7 @@ function post() {
       createPost(usersPosts.value, place.value, hours.value, money.value, 3);
       event.preventDefault();
       alert('Post creado');
+      onNavigate('/post');
     });
     newPostcontainer.append(usersPosts, place, hours, money, buttonPost);
   });

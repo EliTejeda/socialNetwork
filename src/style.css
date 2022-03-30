@@ -128,6 +128,7 @@ body {
 
 .sendiconPost{
     width:2em;
+    z-index: 2;
     
  }
 
@@ -138,6 +139,29 @@ body {
      border: solid .1px green;
      height:fit-content;
      box-shadow: 8px 5px 5px rgb(125, 125, 126); 
+ }
+
+ .editContainer {
+     width: 80vw;
+     height: 25vh;
+     display: flex;
+     flex-direction: row;
+     justify-content: center;
+ }
+
+ .editInput{
+    width: 60vw;
+    height: 25vh;
+    border: solid .1px green;
+    position: absolute;
+    z-index: 1;
+    font-size: 3em;
+ }
+
+ .buttonSend {
+    width: 3em;
+    z-index: 2;
+    align-self: flex-end;
  }
 
 

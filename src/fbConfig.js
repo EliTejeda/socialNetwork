@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'; //eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
-import {getFirestore, addDoc, collection, getDocs, query, where, updateDoc, doc, onSnapshot, deleteDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, getDoc, updateDoc, doc, onSnapshot, deleteDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 const firebaseConfig = {
@@ -94,7 +94,7 @@ export async function createProfile(name, lastName, email) {
   }
 }
 
-export async function createPost(post, place, hours, money, like) {
+export async function createPost(post, place, hours, money) {
   try {
     const docRef = await addDoc(collection(db, 'Post'), {
       Post: post,
@@ -155,26 +155,43 @@ export const loginGoogle = () => {
 };
 let arrayLikes = [];
 export async function aLike(id) {
-  const unsub = onSnapshot(doc(db, 'Post', id), (doc) => {
-    arrayLikes = doc.data().Likes;
-    console.log(arrayLikes);
+  const like = doc(db, 'Post', id);
+  const docSnap = await getDoc(like);
+  if (docSnap.exists()) {
+    /* console.log('Document data:', docSnap.data()); */
+  } else {
+    // doc.data() will be undefined in this case
+    console.log('No such document!');
+  }
+  arrayLikes = docSnap.data().Likes;
+  console.log(arrayLikes);
+  const indexEmail = arrayLikes.indexOf(currentUsermail);
+  console.log(indexEmail);
+  if (indexEmail <= 0) {
     arrayLikes.push(currentUsermail);
-  });
+  } else {
+    const i = arrayLikes.indexOf(currentUsermail);
+    arrayLikes.splice(i, 1);
+  }
+  console.log(indexEmail);
+  console.log(arrayLikes.length);
   const postRef = doc(db, 'Post', id);
   await updateDoc(postRef, {
     Likes: arrayLikes,
   });
-  /* return postRef.data().Likes; */
+  onNavigate('/post');
+  return arrayLikes;
 }
+console.log(arrayLikes.length);
 
-/* export async function editPost(id, editedPost) {
+export async function editPost(id, editedPost) {
   const postRef = doc(db, 'Post', id);
   await updateDoc(postRef, {
-    Post: '13',
+    Post: editedPost,
   });
 }
- */
-/* export async function deletePost(id) {
-  await deleteDoc(doc(db, "Post", id));
+ 
+export async function deletePost(id) {
+  await deleteDoc(doc(db, 'Post', id));
+  onNavigate('/post');
 }
- */
