@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'; //eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
-import {getFirestore, addDoc, collection, getDocs, getDoc, updateDoc, doc, onSnapshot, deleteDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, updateDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 const firebaseConfig = {
@@ -20,7 +20,6 @@ let docId = '';
 let currentUserid = '';
 let currentUsermail = '';
 let currentName = '';
-
 export const createUser = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
@@ -58,7 +57,7 @@ export function authenticUser() {
 export const loginUser = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log(userCredential);
+      // console.log(userCredential);
       onNavigate('/post');
     })
     .catch((error) => {
@@ -66,7 +65,17 @@ export const loginUser = (email, password) => {
       const errorMessage = error.message;
     });
 };
-loginUser();
+
+export async function getName() {
+  try {
+    const q = query(collection(db, 'users'), where('correo', '==', currentUsermail));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot;
+  } catch (e) {
+    console.error('Error adding document: ', e);
+  }
+}
+getName();
 
 export const logoutUser = () => {
   signOut(auth).then(() => {
@@ -94,7 +103,7 @@ export async function createProfile(name, lastName, email) {
   }
 }
 
-export async function createPost(post, place, hours, money) {
+export async function createPost(post, place, hours, money, like) {
   try {
     const docRef = await addDoc(collection(db, 'Post'), {
       Post: post,
@@ -103,14 +112,13 @@ export async function createPost(post, place, hours, money) {
       Money: money,
       Uid: currentUserid,
       Email: currentUsermail,
-      Likes: [],
+      Likes: like,
     });
     console.log('Document written with ID: ', docRef.id);
   } catch (e) {
     console.error('Error adding document: ', e);
   }
 }
-
 export async function getPosts() {
   const eachpost = [];
   const querySnapshot = await getDocs(collection(db, 'Post'));
@@ -120,19 +128,32 @@ export async function getPosts() {
     const place = onedoc.data().Place;
     const money = onedoc.data().Money;
     const hours = onedoc.data().Hours;
+    const email = onedoc.data().Email;
     const idPost = onedoc.id;
     /* const postID = onedoc.data().; */
     const arrayPost = [];
-    arrayPost.push(onepost, like, money, place, hours, idPost);
+    arrayPost.push(onepost, like, money, place, hours, idPost, email);
     eachpost.push(arrayPost);
+    console.log(eachpost);
   });
   return eachpost;
+}
+
+export async function deletePost(id) {
+  await deleteDoc(doc(db, 'Post', id));
+  onNavigate('/post');
+}
+
+export async function editPost(id, editedPost) {
+  const postRef = doc(db, 'Post', id);
+  await updateDoc(postRef, {
+    Post: editedPost,
+  });
 }
 
 export const loginGoogle = () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
-  //signInWithRedirect(auth, provider)
     .then((result) => {
       console.log('logeadoGoogle');
       const credential = GoogleAuthProvider.credentialFromResult(result);
