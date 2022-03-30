@@ -1,5 +1,5 @@
 import { onNavigate } from './main.js'; //eslint-disable-line
-import { createPost, getPosts, logoutUser } from './fbConfig.js'
+import { createPost, getPosts, logoutUser, aLike} from './fbConfig.js'//eslint-disable-line
 
 function post() {
   const postLayout = document.createElement('div');
@@ -36,15 +36,40 @@ function post() {
   const userName = document.createElement('h2');
   userName.classList.add('userName');
   userName.textContent = 'Angela Rivadeneira';
-
   const postNode = document.createElement('section');
   postNode.classList.add('oldPost');
-
   const renderPost = document.createElement('section');
   getPosts().then((posts) => {
+    console.log(posts);
     posts.forEach((postsUsers) => {
-      console.log(postsUsers);
-      renderPost.append(postsUsers);
+      const eachPost = document.createElement('div');
+      eachPost.classList.add('post');
+      let postone = document.createElement('p');
+      postone.textContent = postsUsers[0];
+      const postmoney = document.createElement('p');
+      postmoney.textContent = postsUsers[2];
+      const postplace = document.createElement('p');
+      postplace.textContent = postsUsers[3];
+      const postlike = document.createElement('div');
+      const postNumLike = document.createElement('p');
+      postNumLike.textContent = postsUsers[1];
+      const imgLike = document.createElement('img');
+      imgLike.classList.add('like');
+      imgLike.src = './assets/like.png';
+      postlike.append(postNumLike, imgLike);
+      imgLike.addEventListener('click', () => {
+        aLike(postsUsers[5]);
+      });
+      const imgEdit = document.createElement('img');
+      imgEdit.classList.add('like');
+      imgEdit.src = './assets/lapiz.png';
+      imgEdit.addEventListener('click', () => {
+        postone.setAttribute('type', 'input');
+        /* editPost(postsUsers[5], postone.value); */
+      });
+
+      eachPost.append(postone, postmoney, postplace, postlike, imgEdit);
+      renderPost.append(eachPost);
     });
   });
 
@@ -77,7 +102,7 @@ function post() {
     buttonPost.classList.add('sendiconPost');
     buttonPost.src = './assets/sendicon.png';
     buttonPost.addEventListener('click', (event) => {
-      createPost(usersPosts.value, place.value, hours.value, money.value);
+      createPost(usersPosts.value, place.value, hours.value, money.value, 3);
       event.preventDefault();
       alert('Post creado');
     });

@@ -230,13 +230,20 @@ body {
    justify-content: space-around;
 }
 
-p {
+.post {
     width: 90vw;
     height: 8vh; 
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
     border: solid 1px rgb(21, 71, 1);
     background-color: rgb(253, 253, 253);
     align-self: center;  
     margin: auto;
+}
+
+.like {
+    width: 3vw;
 }
 
 .eachOldPost{

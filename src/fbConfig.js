@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'; //eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
-import {getFirestore, addDoc, collection, getDocs, query, where} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, query, where, updateDoc, doc, onSnapshot, deleteDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 const firebaseConfig = {
@@ -45,7 +45,6 @@ export const createUser = (email, password) => {
 export function authenticUser() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      console.log(user);
       currentUserid = user.uid;
       currentUsermail = user.email;
       console.log(currentUsermail);
@@ -54,7 +53,7 @@ export function authenticUser() {
       onNavigate('/');
     }
   });
-}
+} authenticUser();
 
 export const loginUser = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
@@ -95,7 +94,7 @@ export async function createProfile(name, lastName, email) {
   }
 }
 
-export async function createPost(post, place, hours, money) {
+export async function createPost(post, place, hours, money, like) {
   try {
     const docRef = await addDoc(collection(db, 'Post'), {
       Post: post,
@@ -104,6 +103,7 @@ export async function createPost(post, place, hours, money) {
       Money: money,
       Uid: currentUserid,
       Email: currentUsermail,
+      Likes: [],
     });
     console.log('Document written with ID: ', docRef.id);
   } catch (e) {
@@ -116,29 +116,18 @@ export async function getPosts() {
   const querySnapshot = await getDocs(collection(db, 'Post'));
   querySnapshot.forEach((onedoc) => {
     const onepost = onedoc.data().Post;
-    const published = document.createElement('p');
-    published.textContent = onepost;
-    eachpost.push(published);
+    const like = onedoc.data().Likes;
+    const place = onedoc.data().Place;
+    const money = onedoc.data().Money;
+    const hours = onedoc.data().Hours;
+    const idPost = onedoc.id;
+    /* const postID = onedoc.data().; */
+    const arrayPost = [];
+    arrayPost.push(onepost, like, money, place, hours, idPost);
+    eachpost.push(arrayPost);
   });
   return eachpost;
 }
-const name = [];
-export async function getName() {
-/*  const querySnapshot = await getDocs(collection(db, 'users'));
-  const userscoll = collection(db, 'users'); */
-  const q = query(collection(db, 'users'), where('correo', '==', currentUsermail));
-  console.log(q);
-  const querySnapshot = await getDocs(q);
-  console.log(querySnapshot);
-  querySnapshot.forEach((doc) => {
-    console.log(doc.id, ' => ', doc.data());
-  });
-}
-getName();
-
-
-
-
 
 export const loginGoogle = () => {
   const provider = new GoogleAuthProvider();
@@ -164,3 +153,28 @@ export const loginGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromError(error);
     });
 };
+let arrayLikes = [];
+export async function aLike(id) {
+  const unsub = onSnapshot(doc(db, 'Post', id), (doc) => {
+    arrayLikes = doc.data().Likes;
+    console.log(arrayLikes);
+    arrayLikes.push(currentUsermail);
+  });
+  const postRef = doc(db, 'Post', id);
+  await updateDoc(postRef, {
+    Likes: arrayLikes,
+  });
+  /* return postRef.data().Likes; */
+}
+
+/* export async function editPost(id, editedPost) {
+  const postRef = doc(db, 'Post', id);
+  await updateDoc(postRef, {
+    Post: '13',
+  });
+}
+ */
+/* export async function deletePost(id) {
+  await deleteDoc(doc(db, "Post", id));
+}
+ */
