@@ -1,5 +1,5 @@
 import { onNavigate } from './main.js'; //eslint-disable-line
-import { createPost, logoutUser, getPosts, getName, deletePost, editPost} from './fbConfig.js'
+import { createPost, logoutUser, getPosts, getName, deletePost, editPost, currentUsermail} from './fbConfig.js'
 
 function post() {
   const postLayout = document.createElement('div');
@@ -72,13 +72,16 @@ function post() {
       imgDelete.classList.add('postCountlikesImg');
       imgDelete.src = './assets/erasericon.png';
       imgDelete.addEventListener('click', () => {
-        deletePost(postsUsers[5]); 
+        deletePost(postsUsers[5]);
       });
-
-      const imgEdit = document.createElement('img');
-      imgEdit.classList.add('postCountlikesImg');
-      imgEdit.src = './assets/editicon.png';
-      imgEdit.addEventListener('click', () => {
+      const containerPencil = document.createElement('div');
+      console.log(currentUsermail);
+      if (currentUsermail === postsUsers[6]) {
+        containerPencil.classList.add('editContainer');
+        const imgEdit = document.createElement('img');
+        imgEdit.classList.add('postCountlikesImg');
+        imgEdit.src = './assets/editicon.png';
+        imgEdit.addEventListener('click', () => {
           const editContainer = document.createElement('div');
           editContainer.classList.add('editContainer');
           const editInput = document.createElement('input');
@@ -95,9 +98,9 @@ function post() {
           editContainer.append(editInput, buttonSend);
           showPostcontents.append(editContainer);
         });
-
-      postCount.append(imgLike, postCountlikesSum, imgDelete, imgEdit);
-
+        containerPencil.append(imgEdit);
+      }
+      postCount.append(imgLike, postCountlikesSum, imgDelete, containerPencil);
 
       const showPostEdit = document.createElement('div');
       showPostEdit.classList.add('showPostEdit');
@@ -105,8 +108,6 @@ function post() {
       showPostsusers.append(showPostusersInfo, showPostinfo, postCount);
     });
   });
-
-
 
   //Menú post
   const menuPost = document.createElement('section');

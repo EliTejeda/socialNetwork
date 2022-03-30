@@ -18,7 +18,7 @@ const db = getFirestore();
 const auth = getAuth();
 let docId = '';
 let currentUserid = '';
-let currentUsermail = '';
+export let currentUsermail = '';
 let currentName = '';
 export const createUser = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
@@ -204,15 +204,3 @@ export async function aLike(id) {
   return arrayLikes;
 }
 console.log(arrayLikes.length);
-
-export async function editPost(id, editedPost) {
-  const postRef = doc(db, 'Post', id);
-  await updateDoc(postRef, {
-    Post: editedPost,
-  });
-}
- 
-export async function deletePost(id) {
-  await deleteDoc(doc(db, 'Post', id));
-  onNavigate('/post');
-}
