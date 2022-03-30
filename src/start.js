@@ -8,10 +8,10 @@ function start() {
   startDoll.classList.add('startdoll');
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñe');
-  startLogo.src = './assets/mochilero.png';
-  const titleStart = document.createElement('h1');
+  startLogo.src = './assets/mochilero_-orig.png';
+  const titleStart = document.createElement('img');
   titleStart.classList.add('titleStart');
-  titleStart.textContent = 'PASEITO';
+  titleStart.src = './assets/Paseito.png';
   const startInputs = document.createElement('div');
   startInputs.classList.add('startInputs');
   const loginButton = document.createElement('button');

@@ -3,12 +3,12 @@ import { onNavigate } from './main.js'; //eslint-disable-line
 
 function login() {
   const loginButtons = document.createElement('div');
-
+  loginButtons.classList.add('startContainerlogin');
   const topInfo = document.createElement('section');
-  topInfo.classList.add('topInfo');
-  const titleTop = document.createElement('h1');
+  topInfo.classList.add('topInfologin');
+  const titleTop = document.createElement('img');
   titleTop.classList.add('titleTop');
-  titleTop.textContent = 'PASEITO';
+  titleTop.src = './assets/Paseito.png';
 
   const returnstartIcon = document.createElement('img');
   returnstartIcon.classList.add('logoHome');
@@ -17,10 +17,9 @@ function login() {
     onNavigate('/');
   });
 
-  loginButtons.classList.add('startContainer');
   const startLogo = document.createElement('img');
-  startLogo.classList.add('logoMuñe');
-  startLogo.src = './assets/mochilerox.svg';
+  startLogo.classList.add('logoMuñelogin');
+  startLogo.src = './assets/mochilero_-orig.png';
   const loginForm = document.createElement('form');
   loginForm.classList.add('loginForm');
   const labelEmail = document.createElement('label');
@@ -40,22 +39,22 @@ function login() {
   const loginButton = document.createElement('button');
   loginButton.classList.add('loginButton');
   loginInput.setAttribute('placeholder', 'Correo');
-  loginButton.textContent = 'INGRESAR';
+  loginButton.textContent = 'Ingresar';
   loginButton.addEventListener('click', (event) => {
     event.preventDefault();
     loginUser(loginInput.value, passInput.value);
     authenticUser(loginInput.value);
   });
   const googleButton = document.createElement('img');
-  googleButton.classList.add('logoMuñePost');
+  googleButton.classList.add('logoGoogle');
   googleButton.src = './assets/google.png';
   googleButton.addEventListener('click', (event) => {
     event.preventDefault();
     loginGoogle();
   });
-  loginForm.append(labelEmail, loginInput, labelPass, passInput, loginButton, googleButton);
   topInfo.append(titleTop, returnstartIcon);
-  loginButtons.append(startLogo, loginForm);
+  loginForm.append(labelEmail, loginInput, labelPass, passInput, loginButton, googleButton);
+  loginButtons.append(topInfo, startLogo, loginForm);
   return loginButtons;
 }
 export { login };
