@@ -366,12 +366,12 @@ p{
  .postCountlikesImg{
     width: 2em;
     height: auto;
-    max-width: 10em;
+    max-width: 2em;
 }
  .postCountlikesSum{
     width: 10%;
     height: 5%;
-    font-size: 20em;
+    font-size: 1em;
  }
  .newPostContainer{
     width: 70vw;

@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'; //eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
-import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, updateDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, updateDoc, onSnapshot} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 const firebaseConfig = {
@@ -134,7 +134,6 @@ export async function getPosts() {
     const arrayPost = [];
     arrayPost.push(onepost, like, money, place, hours, idPost, email);
     eachpost.push(arrayPost);
-    console.log(eachpost);
   });
   return eachpost;
 }
@@ -176,31 +175,24 @@ export const loginGoogle = () => {
 };
 let arrayLikes = [];
 export async function aLike(id) {
-  const like = doc(db, 'Post', id);
-  const docSnap = await getDoc(like);
-  if (docSnap.exists()) {
-    /* console.log('Document data:', docSnap.data()); */
-  } else {
-    // doc.data() will be undefined in this case
-    console.log('No such document!');
-  }
-  arrayLikes = docSnap.data().Likes;
-  console.log(arrayLikes);
-  const indexEmail = arrayLikes.indexOf(currentUsermail);
-  console.log(indexEmail);
-  if (indexEmail <= 0) {
-    arrayLikes.push(currentUsermail);
-  } else {
-    const i = arrayLikes.indexOf(currentUsermail);
-    arrayLikes.splice(i, 1);
-  }
-  console.log(indexEmail);
-  console.log(arrayLikes.length);
+  console.log('de Alike', currentUsermail);
+  const unsub = onSnapshot(doc(db, 'Post', id), (doc) => {
+   /*  console.log('Current data: ', doc.data()); */
+    arrayLikes = doc.data().Likes;
+    const emailExists = arrayLikes.includes(currentUsermail);
+    if (emailExists === false) {
+      arrayLikes.push(currentUsermail);
+      console.log('silo metió');
+    } else {
+      const i = arrayLikes.indexOf(currentUsermail);
+      arrayLikes.splice(i, 1);
+      console.log('sí lo saco');
+    }
+  });
   const postRef = doc(db, 'Post', id);
   await updateDoc(postRef, {
     Likes: arrayLikes,
   });
   onNavigate('/post');
-  return arrayLikes;
+  console.log(arrayLikes);
 }
-console.log(arrayLikes.length);

@@ -1,5 +1,5 @@
 import { onNavigate } from './main.js'; //eslint-disable-line
-import { createPost, logoutUser, getPosts, getName, deletePost, editPost, currentUsermail} from './fbConfig.js'
+import { createPost, logoutUser, getPosts, getName, deletePost, editPost, currentUsermail, aLike} from './fbConfig.js'
 
 function post() {
   const postLayout = document.createElement('div');
@@ -57,17 +57,15 @@ function post() {
       postCount.classList.add('postCount');
       const postCountlikes = document.createElement('div');
       postCountlikes.classList.add('postCountlikes');
-      
       const imgLike = document.createElement('img');
       imgLike.classList.add('postCountlikesImg');
       imgLike.src = './assets/like.png';
+      imgLike.addEventListener('click', () => {
+        aLike(postsUsers[5]);
+      });
       const postCountlikesSum = document.createElement('p');
       postCountlikesSum.classList.add('postCountlikesSum');
-      
-    /*  imgLike.addEventListener('click', () => {
-        aLike(postsUsers[1]);
-      }); */
-
+      postCountlikesSum.textContent = postsUsers[1].length;
       const imgDelete = document.createElement('img');
       imgDelete.classList.add('postCountlikesImg');
       imgDelete.src = './assets/erasericon.png';
@@ -118,7 +116,7 @@ function post() {
   returnstartIcon.addEventListener('click', () => {
     onNavigate('/');
   });
-    const searchpostIcon = document.createElement('img');
+  const searchpostIcon = document.createElement('img');
   searchpostIcon.classList.add('lupaPost');
   searchpostIcon.src = './assets/lupa.png';
   searchpostIcon.addEventListener('click', () => {
@@ -153,7 +151,7 @@ function post() {
     buttonPost.addEventListener('click', (event) => {
       createPost(usersPosts.value, place.value, hours.value, money.value, 3);
       event.preventDefault();
-     onNavigate('/post');
+      onNavigate('/post');
     });
     itemsContainer.append(place, hours, money, buttonPost);
     newPostcontainer.append(usersPosts, itemsContainer);
@@ -166,7 +164,7 @@ function post() {
     onNavigate('/');
   });
 
-   menuPost.append(returnstartIcon, searchpostIcon, createpostIcon, exitIcon);
+  menuPost.append(returnstartIcon, searchpostIcon, createpostIcon, exitIcon);
   postLayout.append(topInfo, showPostsusers, newPostcontainer, menuPost);
 
   return postLayout;
