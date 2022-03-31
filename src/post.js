@@ -17,7 +17,6 @@ function post() {
   let userDataName = '';
   getName().then((name) => {
     name.forEach((doc) => {
-      console.log(doc);
       userDataFilter = (doc.id, ' => ', doc.data());
       userDataName = userDataFilter.Name + ' ' + userDataFilter.LastName;
       userName = document.createElement('h2');
@@ -66,16 +65,17 @@ function post() {
       const postCountlikesSum = document.createElement('p');
       postCountlikesSum.classList.add('postCountlikesSum');
       postCountlikesSum.textContent = postsUsers[1].length;
-      const imgDelete = document.createElement('img');
-      imgDelete.classList.add('postCountlikesImg');
-      imgDelete.src = './assets/erasericon.png';
-      imgDelete.addEventListener('click', () => {
-        deletePost(postsUsers[5]);
-      });
+
+     
       const containerPencil = document.createElement('div');
-      console.log(currentUsermail);
       if (currentUsermail === postsUsers[6]) {
         containerPencil.classList.add('editContainer');
+        const imgDelete = document.createElement('img');
+        imgDelete.classList.add('postCountlikesImg');
+        imgDelete.src = './assets/erasericon.png';
+        imgDelete.addEventListener('click', () => {
+          deletePost(postsUsers[5]);
+        });
         const imgEdit = document.createElement('img');
         imgEdit.classList.add('postCountlikesImg');
         imgEdit.src = './assets/editicon.png';
@@ -96,9 +96,9 @@ function post() {
           editContainer.append(editInput, buttonSend);
           showPostcontents.append(editContainer);
         });
-        containerPencil.append(imgEdit);
+        containerPencil.append(imgEdit, imgDelete);
       }
-      postCount.append(imgLike, postCountlikesSum, imgDelete, containerPencil);
+      postCount.append(imgLike, postCountlikesSum, containerPencil);
 
       const showPostEdit = document.createElement('div');
       showPostEdit.classList.add('showPostEdit');

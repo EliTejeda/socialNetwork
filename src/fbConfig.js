@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'; //eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
-import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, updateDoc, onSnapshot} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, setDoc, getDoc, updateDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 const firebaseConfig = {
@@ -103,7 +103,7 @@ export async function createProfile(name, lastName, email) {
   }
 }
 
-export async function createPost(post, place, hours, money, like) {
+export async function createPost(post, place, hours, money) {
   try {
     const docRef = await addDoc(collection(db, 'Post'), {
       Post: post,
@@ -112,7 +112,7 @@ export async function createPost(post, place, hours, money, like) {
       Money: money,
       Uid: currentUserid,
       Email: currentUsermail,
-      Likes: like,
+      Likes: [],
     });
     console.log('Document written with ID: ', docRef.id);
   } catch (e) {
@@ -173,26 +173,32 @@ export const loginGoogle = () => {
       const credential = GoogleAuthProvider.credentialFromError(error);
     });
 };
-let arrayLikes = [];
+
+export async function updateLike(id, arrayLikes) {
+  const i = arrayLikes.indexOf(currentUsermail);
+  console.log(arrayLikes, 'antes push');
+  console.log(i);
+  if (i < 0) {
+    console.log('esverdadero');
+    arrayLikes.push(currentUsermail);
+    console.log(arrayLikes, 'después push');
+  } else {
+    arrayLikes.splice(i, 1);
+  }
+  const likes = doc(db, 'Post', id);
+  setDoc(likes, { Likes: arrayLikes }, { merge: true });
+}
+
 export async function aLike(id) {
-  console.log('de Alike', currentUsermail);
-  const unsub = onSnapshot(doc(db, 'Post', id), (doc) => {
-   /*  console.log('Current data: ', doc.data()); */
-    arrayLikes = doc.data().Likes;
-    const emailExists = arrayLikes.includes(currentUsermail);
-    if (emailExists === false) {
-      arrayLikes.push(currentUsermail);
-      console.log('silo metió');
-    } else {
-      const i = arrayLikes.indexOf(currentUsermail);
-      arrayLikes.splice(i, 1);
-      console.log('sí lo saco');
-    }
-  });
-  const postRef = doc(db, 'Post', id);
-  await updateDoc(postRef, {
-    Likes: arrayLikes,
-  });
+  const docRef = doc(db, 'Post', id);
+  const docSnap = await getDoc(docRef);
+  // eslint-disable-next-line no-empty
+  if (docSnap.exists()) {
+  } else {
+    // doc.data() will be undefined in this case
+    console.log('No such document!');
+  }
+  console.log(docSnap.data().Likes, 'lo que manda ALIKE');
+  updateLike(id, docSnap.data().Likes);
   onNavigate('/post');
-  console.log(arrayLikes);
 }
