@@ -88,18 +88,30 @@ function post() {
         imgEdit.src = './assets/editicon.png';
         imgEdit.addEventListener('click', () => {
           const editContainer = document.createElement('div');
-          editContainer.classList.add('editContainer');
+          editContainer.classList.add('newEditcontainer');
           const editInput = document.createElement('input');
-          editInput.classList.add('editInput');
+          editInput.classList.add('postNewInput');
+          const itemsContainer = document.createElement('div');
+          itemsContainer.classList.add('itemsContainer');
+          const place = document.createElement('input');
+          place.classList.add('placeInput');
+          place.setAttribute('placeholder', 'Lugar');
+          const hours = document.createElement('input');
+          hours.setAttribute('placeholder', 'Horas');
+          hours.classList.add('hoursInput');
+          const money = document.createElement('input');
+          money.setAttribute('placeholder', '$$$');
+          money.classList.add('moneyInput');
           const buttonSend = document.createElement('img');
           buttonSend.classList.add('sendiconPost');
           buttonSend.src = './assets/sendicon.png';
           showPostcontents.append(buttonSend);
           buttonSend.addEventListener('click', () => {
-            editPost(postsUsers.data().Post, editInput.value);
+            editPost(postsUsers.id, editInput.value, place.value, hours.value, money.value);//eslint-disable-line
             onNavigate('/post');
           });
-          editContainer.append(editInput, buttonSend);
+          itemsContainer.append(place, hours, money, buttonSend);
+          editContainer.append(editInput, itemsContainer);
           showPostcontents.append(editContainer);
         });
         containerPencil.append(imgEdit, imgDelete);
@@ -147,7 +159,7 @@ function post() {
     buttonPost.classList.add('sendiconPost');
     buttonPost.src = './assets/sendicon.png';
     buttonPost.addEventListener('click', (event) => {
-      createPost(usersPosts.value, place.value, hours.value, money.value, 3);
+      createPost(usersPosts.value, place.value, hours.value, money.value);
       event.preventDefault();
       onNavigate('/post');
     });

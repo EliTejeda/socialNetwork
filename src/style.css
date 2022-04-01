@@ -254,15 +254,25 @@ body {
     width: 100vw;
     height: 20vh;
     top: 65%;
-   position: absolute;
-   display: grid;
-   grid-template-rows: 30% 70%; 
-   align-items: center;
-   position: absolute;
-    border: 8px solid  #86B6E1;
+    position: absolute;
+    display: grid;
+    grid-template-rows: 30% 70%; 
+    border: .5em solid  #86B6E1;
     border-radius: 5%;
     background-color:  whitesmoke;
 }
+
+.newEditcontainer{
+    width: 100vw;
+    height: 20vh;
+    position: absolute;
+    display: grid;
+    grid-template-rows: 30% 70%; 
+    border: .5em solid  #86B6E1;
+    border-radius: 5%;
+    background-color:  whitesmoke;
+}
+
 .postNewInput{
     width: 100%;
     height: 40%;
@@ -377,17 +387,22 @@ p{
     font-size: 1em;
  }
  
- .newPostContainer{
-    width: 70vw;
-    height: 8vh;
-    display: flex;
-    flex-direction: column;
+
+.newEditContainer{
+    width: 90vw;
+    height: 20vh;
+    position: fixed;
+    display: grid;
+    grid-template-rows: 30% 70%; 
+    border: .7em solid  #727374;
+    border-radius: 5%;
+    background-color:  whitesmoke;
 }
+
 .itemsContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows:1fr 1fr;
-   
     align-items: center;
     justify-content: center;
 

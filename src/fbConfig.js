@@ -28,8 +28,6 @@ export const createUser = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;//eslint-disable-line
-      /* message.innerHTML='Cuenta creada con éxito!';//eslint-disable-line */
-      onNavigate('/login');
     })
     .catch((error) => {
       const errorCode = error.code;
@@ -93,11 +91,10 @@ export async function createProfile(name, lastName, email) {
       Name: name,
       LastName: lastName,
       correo: email,
-      docName: docId,
     });
     docId = docRef.id;
     console.log('Document written with ID: ', docId); //eslint-disable-line
-    onNavigate('/');
+    onNavigate('/login');
   } catch (e) {
     console.error('Error adding document: ', e);//eslint-disable-line
     console.log(console.error);//eslint-disable-line
@@ -132,10 +129,13 @@ export async function deletePost(id) {
   onNavigate('/post');
 }
 
-export async function editPost(id, editedPost) {
+export async function editPost(id, editedPost, editedPlace, editedHours, editedMoney) {
   const postRef = doc(db, 'Post', id);
   await updateDoc(postRef, {
     Post: editedPost,
+    Place: editedPlace,
+    Hours: editedHours,
+    Money: editedMoney,
   });
 }
 

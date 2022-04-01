@@ -1,7 +1,5 @@
 import { createUser, createProfile} from './fbConfig.js'; //eslint-disable-line
-import { post } from './post.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
-// eslint-disable-next-line import/no-cycle
 
 function account() {
   const accountButtons = document.createElement('div');
@@ -57,6 +55,7 @@ function account() {
     document.write(createUser(registerInput.value, passInput.value));
     createProfile(userName.value, userLastName.value, registerInput.value);
     createUser(registerInput.value, passInput.value, userName.value);
+    onNavigate('/login');
   });
   topInfo.append(titleTop, returnstartIcon);
   accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput, createButton);//eslint-disable-line
