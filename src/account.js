@@ -59,7 +59,7 @@ function account() {
     createUser(registerInput.value, passInput.value, userName.value);
   });
   topInfo.append(titleTop, returnstartIcon);
-  accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput, createButton);
+  accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput, createButton);//eslint-disable-line
   accountContainer.append(accountForm);
   accountButtons.append(topInfo, startLogo, accountContainer);
   return accountButtons;

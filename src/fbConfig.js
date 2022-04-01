@@ -18,26 +18,30 @@ const db = getFirestore();
 const auth = getAuth();
 let docId = '';
 let currentUserid = '';
-export let currentUsermail = '';
-let currentName = '';
+export let currentUsermail = ''; //eslint-disable-line
+let currentName = ''; //eslint-disable-line
+export let errorMessage = "";//eslint-disable-line
+const timeElapsed = Date.now();
+const today = new Date(timeElapsed);
+
 export const createUser = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
-      alert('Cuenta creada con éxito!');
+      const user = userCredential.user;//eslint-disable-line
+      /* message.innerHTML='Cuenta creada con éxito!';//eslint-disable-line */
       onNavigate('/login');
     })
     .catch((error) => {
       const errorCode = error.code;
+      errorMessage = error.message;
       if (errorCode === 'auth/invalid-email') {
-        alert('email invalido');
+        alert('email invalido');//eslint-disable-line
       } else if (errorCode === 'auth/weak-password') {
-        alert('contraseña invalida');
+        alert('contraseña invalida');//eslint-disable-line
       } else if (errorCode === 'auth/missing-email') {
-        alert('falta correo');
+        alert('falta correo');//eslint-disable-line
       } else if (errorCode === 'auth/internal-error') {
-        alert('falta correo');
+        alert('falta correo');//eslint-disable-line
       }
     });
 };
@@ -46,9 +50,7 @@ export function authenticUser() {
     if (user) {
       currentUserid = user.uid;
       currentUsermail = user.email;
-      console.log(currentUsermail);
     } else if (user === null) {
-      console.log('no logueado');
       onNavigate('/');
     }
   });
@@ -56,31 +58,31 @@ export function authenticUser() {
 
 export const loginUser = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+    .then((userCredential) => {//eslint-disable-line
       // console.log(userCredential);
       onNavigate('/post');
     })
     .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
+      const errorCode = error.code;//eslint-disable-line
+      errorMessage = error.message;//eslint-disable-line
+      alert(errorMessage);
     });
 };
 
-export async function getName() {
+export async function getName() {//eslint-disable-line
   try {
     const q = query(collection(db, 'users'), where('correo', '==', currentUsermail));
     const querySnapshot = await getDocs(q);
     return querySnapshot;
   } catch (e) {
-    console.error('Error adding document: ', e);
+    console.error('Error adding document: ', e);//eslint-disable-line
   }
 }
 getName();
 
 export const logoutUser = () => {
   signOut(auth).then(() => {
-    alert('Gracias');
-  }).catch((error) => {
+  }).catch((error) => {//eslint-disable-line
   // An error happened.
   });
 };
@@ -94,11 +96,11 @@ export async function createProfile(name, lastName, email) {
       docName: docId,
     });
     docId = docRef.id;
-    console.log('Document written with ID: ', docRef.Name);
-    onNavigate('/login');
+    console.log('Document written with ID: ', docId); //eslint-disable-line
+    onNavigate('/');
   } catch (e) {
-    console.error('Error adding document: ', e);
-    console.log(console.error);
+    console.error('Error adding document: ', e);//eslint-disable-line
+    console.log(console.error);//eslint-disable-line
     onNavigate('/account');
   }
 }
@@ -113,29 +115,16 @@ export async function createPost(post, place, hours, money) {
       Uid: currentUserid,
       Email: currentUsermail,
       Likes: [],
+      Date: today,
     });
-    console.log('Document written with ID: ', docRef.id);
+    console.log('Document written with ID: ', docRef.id); //eslint-disable-line
   } catch (e) {
-    console.error('Error adding document: ', e);
+    console.error('Error adding document: ', e);//eslint-disable-line
   }
 }
 export async function getPosts() {
-  const eachpost = [];
   const querySnapshot = await getDocs(collection(db, 'Post'));
-  querySnapshot.forEach((onedoc) => {
-    const onepost = onedoc.data().Post;
-    const like = onedoc.data().Likes;
-    const place = onedoc.data().Place;
-    const money = onedoc.data().Money;
-    const hours = onedoc.data().Hours;
-    const email = onedoc.data().Email;
-    const idPost = onedoc.id;
-    /* const postID = onedoc.data().; */
-    const arrayPost = [];
-    arrayPost.push(onepost, like, money, place, hours, idPost, email);
-    eachpost.push(arrayPost);
-  });
-  return eachpost;
+  return querySnapshot;
 }
 
 export async function deletePost(id) {
@@ -154,34 +143,21 @@ export const loginGoogle = () => {
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
     .then((result) => {
-      console.log('logeadoGoogle');
-      const credential = GoogleAuthProvider.credentialFromResult(result);
-      const token = credential.accessToken;
-      console.log(credential);
-      // The signed-in user info.
-      const user = result.user;
-      console.log(user);
+      const credential = GoogleAuthProvider.credentialFromResult(result);//eslint-disable-line
       onNavigate('/post');
     }).catch((error) => {
-      console.log(user, error);
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      // The email of the user's account used.
-      const email = error.email;
+      const errorCode = error.code;//eslint-disable-line
+      const errorMessage = error.message;//eslint-disable-line
+      const email = error.email;//eslint-disable-line
       // The AuthCredential type that was used.
-      const credential = GoogleAuthProvider.credentialFromError(error);
+      const credential = GoogleAuthProvider.credentialFromError(error);//eslint-disable-line
     });
 };
 
 export async function updateLike(id, arrayLikes) {
   const i = arrayLikes.indexOf(currentUsermail);
-  console.log(arrayLikes, 'antes push');
-  console.log(i);
   if (i < 0) {
-    console.log('esverdadero');
     arrayLikes.push(currentUsermail);
-    console.log(arrayLikes, 'después push');
   } else {
     arrayLikes.splice(i, 1);
   }
@@ -196,9 +172,9 @@ export async function aLike(id) {
   if (docSnap.exists()) {
   } else {
     // doc.data() will be undefined in this case
-    console.log('No such document!');
+    console.log('No such document!');//eslint-disable-line
   }
-  console.log(docSnap.data().Likes, 'lo que manda ALIKE');
+  console.log(docSnap.data().Likes, 'lo que manda ALIKE');//eslint-disable-line
   updateLike(id, docSnap.data().Likes);
   onNavigate('/post');
 }
