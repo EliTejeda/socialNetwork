@@ -29,6 +29,10 @@ window.onpopstate = () => {       /*actualiza url localizacion *///eslint-disabl
   rootDiv.appendChild(routes[window.location.pathname]());
 };
 
+window.onload = () => {       /*actualiza url localizacion *///eslint-disable-line
+  rootDiv.appendChild(routes[window.location.pathname]());
+};
+
 const component = routes[window.location.pathname];   /* al cargarse la pag por primera vez regresa al / a start *///eslint-disable-line
 rootDiv.appendChild(component());
 
