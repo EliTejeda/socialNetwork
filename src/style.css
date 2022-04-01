@@ -351,23 +351,26 @@ p{
     grid-template-columns: 1fr 1fr 1fr 1fr;
     justify-content: flex-end;
     border: 5px solid #86B6E1;
-    font-size: 20em;
+    font-size: 10em;
  }
  .postCountlikes{
     width: 10%;
     height: 10%;
     border: 10px solid rgb(200, 255, 0);
+    border: 5px solid #86B6E1;
  }
  .postCountlikesImg{
     width: 40%;
     height: auto;
-    max-width: 10em;
+    max-width: 20em;
+    border: 5px solid #86B6E1;
 }
- .postCountlikesSum{
+/*  .postCountlikesSum{
     width: 10%;
-    height: 5%;
-    font-size: 20em;
- }
+    height: 3%;
+    font-size: 2em;
+    border: 10px solid black;
+ }  */
  .newPostContainer{
     width: 70vw;
     height: 8vh;

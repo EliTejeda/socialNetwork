@@ -1,6 +1,6 @@
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'; //eslint-disable-line
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line
-import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, updateDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, updateDoc, arrayUnion, arrayRemove, onSnapshot, getDoc} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 
 const firebaseConfig = {
@@ -24,8 +24,6 @@ export const createUser = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       const user = userCredential.user;
-      console.log(user);
-      alert('Cuenta creada con éxito!');
       onNavigate('/login');
     })
     .catch((error) => {
@@ -46,10 +44,8 @@ export function authenticUser() {
     if (user) {
       currentUserid = user.uid;
       currentUsermail = user.email;
-      console.log(currentUsermail);
-    } else if (user === null) {
-      console.log('no logueado');
-      onNavigate('/');
+      } else if (user === null) {
+           onNavigate('/');
     }
   });
 }
@@ -91,7 +87,6 @@ export async function createProfile(name, lastName, email) {
       Name: name,
       LastName: lastName,
       correo: email,
-      docName: docId,
     });
     docId = docRef.id;
     console.log('Document written with ID: ', docRef.Name);
@@ -103,7 +98,7 @@ export async function createProfile(name, lastName, email) {
   }
 }
 
-export async function createPost(post, place, hours, money, like) {
+export async function createPost(post, place, hours, money) {
   try {
     const docRef = await addDoc(collection(db, 'Post'), {
       Post: post,
@@ -112,7 +107,7 @@ export async function createPost(post, place, hours, money, like) {
       Money: money,
       Uid: currentUserid,
       Email: currentUsermail,
-      Likes: like,
+      Likes: [],
     });
     console.log('Document written with ID: ', docRef.id);
   } catch (e) {
@@ -134,11 +129,55 @@ export async function getPosts() {
     const arrayPost = [];
     arrayPost.push(onepost, like, money, place, hours, idPost, email);
     eachpost.push(arrayPost);
-    console.log(eachpost);
   });
   return eachpost;
 }
+/* export async function editLike(likes, id) {
+  console.log(likes, id);
+  console.log(currentUsermail);
+  const postRef = onSnapshot(doc(db, 'Post', id));
+  console.log(postRef);
+  const contentLikes = likes.includes(currentUsermail);
+  if (contentLikes) {
+    await updateDoc(postRef, {
+      Likes: arrayRemove(currentUsermail),
+    });
+    console.log('unlike');
+  } else if (!contentLikes) {
+    await updateDoc(postRef, {
+      Likes: arrayUnion(currentUsermail),
+       });
+    console.log('like');
+  }
+ } */
+export async function Test() {
+  const postRef = onSnapshot(collection(db, 'Post'));
+  console.log('onSnapshot-db Post', postRef);
+  const postRef1 = collection(db, 'Post');
+  console.log('collection db', postRef1);
+  const docRef = doc(db, 'Post', 'Email');
+  console.log('doc db', docRef);
+  const docSnap = await getDoc(docRef);
+  console.log('await getDoc Post Email', docSnap);
+  const querySnapshot = await getDocs(collection(db, 'Post'));
+  console.log('await getDocs collection db Post', querySnapshot);
+}
+Test();
 
+/*  const contentLikes = likes.includes(currentUsermail);
+  if (contentLikes) {
+     updateDoc(postRef, {
+      Likes: arrayRemove(currentUsermail),
+    });
+    console.log('unlike');
+  } else if (!contentLikes) {
+    updateDoc(postRef, {
+      Likes: arrayUnion(currentUsermail),
+       });
+    console.log('like');
+  }
+});
+} */
 export async function deletePost(id) {
   await deleteDoc(doc(db, 'Post', id));
   onNavigate('/post');

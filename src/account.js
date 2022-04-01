@@ -1,5 +1,4 @@
 import { createUser, createProfile} from './fbConfig.js'; //eslint-disable-line
-import { post } from './post.js'; //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 // eslint-disable-next-line import/no-cycle
 

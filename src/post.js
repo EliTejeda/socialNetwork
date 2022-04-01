@@ -17,7 +17,6 @@ function post() {
   let userDataName = '';
   getName().then((name) => {
     name.forEach((doc) => {
-      console.log(doc);
       userDataFilter = (doc.id, ' => ', doc.data());
       userDataName = userDataFilter.Name + ' ' + userDataFilter.LastName;
       userName = document.createElement('h2');
@@ -52,51 +51,51 @@ function post() {
       postplace.textContent = 'Lugar: ' + postsUsers[3];
       const posthours = document.createElement('p');
       posthours.textContent = 'Tiempo invertido: ' + postsUsers[4];
+      
       //Container Post-count
       const postCount = document.createElement('div');
       postCount.classList.add('postCount');
       const postCountlikes = document.createElement('div');
       postCountlikes.classList.add('postCountlikes');
-      
       const imgLike = document.createElement('img');
       imgLike.classList.add('postCountlikesImg');
       imgLike.src = './assets/like.png';
-      const postCountlikesSum = document.createElement('p');
-      postCountlikesSum.classList.add('postCountlikesSum');
-      
-    /*  imgLike.addEventListener('click', () => {
-        aLike(postsUsers[1]);
-      }); */
+     /*  const postCountlikesSum = document.createElement('p');
+      postCountlikesSum.classList.add('postCountlikesImg');
+      postCountlikesSum.textContent = editLike().value; */
+      imgLike.addEventListener('click', () => {
+        editLike(postsUsers[1], postsUsers[5], postsUsers[6]);
+      });
 
       const imgDelete = document.createElement('img');
       imgDelete.classList.add('postCountlikesImg');
       imgDelete.src = './assets/erasericon.png';
       imgDelete.addEventListener('click', () => {
-        deletePost(postsUsers[5]); 
+        deletePost(postsUsers[5]);
       });
 
       const imgEdit = document.createElement('img');
       imgEdit.classList.add('postCountlikesImg');
       imgEdit.src = './assets/editicon.png';
       imgEdit.addEventListener('click', () => {
-          const editContainer = document.createElement('div');
-          editContainer.classList.add('editContainer');
-          const editInput = document.createElement('input');
-          editInput.classList.add('editInput');
-          editInput.textContent = postsUsers[5];
-          const buttonSend = document.createElement('img');
-          buttonSend.classList.add('sendiconPost');
-          buttonSend.src = './assets/sendicon.png';
-          showPostcontents.append(buttonSend);
-          buttonSend.addEventListener('click', () => {
-            editPost(postsUsers[5], editInput.value);
-            onNavigate('/post');
-          });
-          editContainer.append(editInput, buttonSend);
-          showPostcontents.append(editContainer);
+        const editContainer = document.createElement('div');
+        editContainer.classList.add('editContainer');
+        const editInput = document.createElement('input');
+        editInput.classList.add('editInput');
+        editInput.textContent = postsUsers[5];
+        const buttonSend = document.createElement('img');
+        buttonSend.classList.add('sendiconPost');
+        buttonSend.src = './assets/sendicon.png';
+        showPostcontents.append(buttonSend);
+        buttonSend.addEventListener('click', () => {
+          editPost(postsUsers[5], editInput.value);
+          onNavigate('/post');
         });
+        editContainer.append(editInput, buttonSend);
+        showPostcontents.append(editContainer);
+      });
 
-      postCount.append(imgLike, postCountlikesSum, imgDelete, imgEdit);
+      postCount.append(imgLike, imgDelete, imgEdit);
 
 
       const showPostEdit = document.createElement('div');
@@ -150,7 +149,7 @@ function post() {
     buttonPost.classList.add('sendiconPost');
     buttonPost.src = './assets/sendicon.png';
     buttonPost.addEventListener('click', (event) => {
-      createPost(usersPosts.value, place.value, hours.value, money.value, 3);
+      createPost(usersPosts.value, place.value, hours.value, money.value);
       event.preventDefault();
      onNavigate('/post');
     });
