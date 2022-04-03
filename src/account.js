@@ -40,22 +40,21 @@ function account() {
   registerInput.setAttribute('id', 'user');
   registerInput.classList.add('loginInput');
   registerInput.setAttribute('placeholder', 'Correo');
-  registerInput.textContent = 'Usuario';
   registerInput.setAttribute('id', 'labelName');
   const passInput = document.createElement('input');
   passInput.setAttribute('placeholder', 'Contraseña');
   passInput.setAttribute('id', 'password');
   passInput.setAttribute('type', 'password');
   passInput.classList.add('loginInput');
-  passInput.textContent = 'Password';
   const createButton = document.createElement('button');
   createButton.classList.add('loginButton');
   createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
     document.write(createUser(registerInput.value, passInput.value));
-    createProfile(userName.value, userLastName.value, registerInput.value);
-    createUser(registerInput.value, passInput.value, userName.value);
-    onNavigate('/login');
+   /*  createProfile(userName.value, userLastName.value, registerInput.value); */
+    createUser(registerInput.value, passInput.value);
+    console.log(registerInput.value, passInput.value, "loquemanda");
+    onNavigate("/login");
   });
   topInfo.append(titleTop, returnstartIcon);
   accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput, createButton);//eslint-disable-line
