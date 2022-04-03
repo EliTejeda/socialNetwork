@@ -1,6 +1,6 @@
+import { newPosts, renderAdvice } from './onSnapshot.js' //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 import { createPost, logoutUser, getPosts, getName, deletePost, editPost, currentUsermail, aLike} from './fbConfig.js'//eslint-disable-line
-import { newPosts } from './onSnapshot.js' //eslint-disable-line
 
 function post() {
   const postLayout = document.createElement('div');
@@ -68,7 +68,6 @@ function post() {
       heartContainer.append(imgLike);
       heartContainer.classList.add('coloredHeart');
       imgLike.addEventListener('click', () => {
-        console.log(postsUsers.id);
         aLike(postsUsers.id);
       });
       const postCountlikesSum = document.createElement('p');
@@ -82,7 +81,7 @@ function post() {
         imgDelete.classList.add('postCountlikesImg');
         imgDelete.src = './assets/erasericon.png';
         imgDelete.addEventListener('click', () => {
-          deletePost(postsUsers.data().id);
+          deletePost(postsUsers.id);
         });
         const imgEdit = document.createElement('img');
         imgEdit.classList.add('postCountlikesImg');
@@ -180,12 +179,8 @@ function post() {
   postLayout.append(topInfo, showPostsusers, newPostcontainer, menuPost);
 
   /* let hearIncomingPost = ''; */
-  newPosts().then((doc) => {
-    doc.forEach((postsUsers) => {
-      console.log(postsUsers, "loque va llegando");
-    });
-    /* console.log(hearIncomingPost, 'los que van llegando'); */
-  });
+
+
   return postLayout;
 }
 export { post };
