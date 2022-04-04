@@ -40,11 +40,15 @@ function login() {
   loginButton.classList.add('loginButton');
   loginInput.setAttribute('placeholder', 'Correo');
   loginButton.textContent = 'Ingresar';
+  const error = document.createElement('p');
   loginButton.addEventListener('click', (event) => {
     event.preventDefault();
-    loginUser(loginInput.value, passInput.value);
+    loginUser(loginInput.value, passInput.value).catch((messageError) => {
+      console.log(messageError);
+    });
     authenticUser(loginInput.value);
   });
+
   const googleButton = document.createElement('img');
   googleButton.classList.add('logoGoogle');
   googleButton.src = './assets/google.png';
@@ -53,7 +57,7 @@ function login() {
     loginGoogle();
   });
   topInfo.append(titleTop, returnstartIcon);
-  loginForm.append(labelEmail, loginInput, labelPass, passInput, loginButton, googleButton);
+  loginForm.append(labelEmail, loginInput, labelPass, passInput, error, loginButton, googleButton);
   loginButtons.append(topInfo, startLogo, loginForm);
   return loginButtons;
 }
