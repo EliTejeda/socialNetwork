@@ -1,5 +1,5 @@
-import { loginUser, authenticUser, loginGoogle} from './fbConfig.js'; //eslint-disable-line
-import { onNavigate } from './main.js'; //eslint-disable-line
+import { loginUser, authenticUser, loginGoogle} from '../appFunctions/firebase.js'; //eslint-disable-line
+import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
 function login() {
   const loginButtons = document.createElement('div');

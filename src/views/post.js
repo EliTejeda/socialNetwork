@@ -1,6 +1,7 @@
-import { newPosts, renderAdvice } from './onSnapshot.js' //eslint-disable-line
-import { onNavigate } from './main.js'; //eslint-disable-line
-import { createPost, logoutUser, getPosts, getName, deletePost, editPost, currentUsermail, aLike} from './fbConfig.js'//eslint-disable-line
+import { newPosts, renderAdvice } from '../appFunctions/onSnapshot.js'; //eslint-disable-line
+import { onNavigate } from '../routes/main.js'; //eslint-disable-line
+import { createPost, getPosts, getName, deletePost, editPost, aLike} from '../appFunctions/firestore.js'; //eslint-disable-line
+import { logoutUser, currentUsermail} from '../appFunctions/firebase.js'; //eslint-disable-line
 
 function post() {
   const postLayout = document.createElement('div');

@@ -1,9 +1,9 @@
 /* eslint-disable import/no-cycle */
 // Este es el punto de entrada de tu aplicacion *parte dinamica*
-import { start } from './start.js';
-import { login } from './login.js';
-import { account } from './account.js';
-import { post } from './post.js';
+import { start } from '../views/start.js';
+import { login } from '../views/login.js';
+import { account } from '../views/account.js';
+import { post } from '../views/post.js';
 
 const routes = { /*objeto con distintas propiedades *///eslint-disable-line
   '/': start,
