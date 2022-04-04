@@ -53,13 +53,13 @@ function account() {
   createButton.classList.add('loginButton');
   createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
-    document.write(createUser(registerInput.value, passInput.value));
+    //document.write(createUser(registerInput.value, passInput.value));
     createProfile(userName.value, userLastName.value, registerInput.value);
-    createUser(registerInput.value, passInput.value, userName.value);
-  });
+    createUser(registerInput.value, passInput.value);
+    });
   topInfo.append(titleTop, returnstartIcon);
-  accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput, createButton);
-  accountContainer.append(accountForm);
+  accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput);
+  accountContainer.append(accountForm, createButton);
   accountButtons.append(topInfo, startLogo, accountContainer);
   return accountButtons;
 }
