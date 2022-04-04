@@ -1,5 +1,6 @@
-import { createUser, createProfile} from './fbConfig.js'; //eslint-disable-line
-import { onNavigate } from './main.js'; //eslint-disable-line
+import { createUser} from '../appFunctions/firebase.js'; //eslint-disable-line
+import {createProfile} from '../appFunctions/firestore.js'; //eslint-disable-line
+import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
 function account() {
   const accountButtons = document.createElement('div');
@@ -51,8 +52,8 @@ function account() {
   createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
     createUser(registerInput.value, passInput.value);
-    console.log(registerInput.value, passInput.value, "loquemanda");
-    onNavigate("/login");
+    createProfile(userName.value, userLastName.value, registerInput.value);
+    onNavigate('/login');
   });
   topInfo.append(titleTop, returnstartIcon);
   accountForm.append(labelName, userName, labelLastName, userLastName, registerInput, passInput, createButton);//eslint-disable-line
