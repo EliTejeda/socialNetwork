@@ -1,3 +1,4 @@
+import { newPosts, renderAdvice } from './onSnapshot.js' //eslint-disable-line
 import { onNavigate } from './main.js'; //eslint-disable-line
 import { createPost, logoutUser, getPosts, getName, deletePost, editPost, currentUsermail, aLike} from './fbConfig.js'//eslint-disable-line
 
@@ -27,9 +28,10 @@ function post() {
   topInfo.append(startLogo);
   const showPostsusers = document.createElement('section');
   showPostsusers.classList.add('showPostusers');
+  const renderizedPost = [];
   getPosts().then((posts) => {
     posts.forEach((postsUsers) => {
-      console.log(postsUsers);
+      renderizedPost.push(1);
       const showPostusersInfo = document.createElement('div');
       showPostusersInfo.classList.add('showPostusersInfo');
       const showPostusersName = document.createElement('h4');
@@ -58,7 +60,6 @@ function post() {
       const heartContainer = document.createElement('div');
       const imgLike = document.createElement('img');
       imgLike.classList.add('postCountlikesImg');
-      console.log(postsUsers.data().Likes.includes(currentUsermail));
       if (postsUsers.data().Likes.includes(currentUsermail)) {
         imgLike.src = './assets/like2.png';
       } else {
@@ -67,7 +68,6 @@ function post() {
       heartContainer.append(imgLike);
       heartContainer.classList.add('coloredHeart');
       imgLike.addEventListener('click', () => {
-        console.log(postsUsers.id);
         aLike(postsUsers.id);
       });
       const postCountlikesSum = document.createElement('p');
@@ -81,7 +81,7 @@ function post() {
         imgDelete.classList.add('postCountlikesImg');
         imgDelete.src = './assets/erasericon.png';
         imgDelete.addEventListener('click', () => {
-          deletePost(postsUsers.data().id);
+          deletePost(postsUsers.id);
         });
         const imgEdit = document.createElement('img');
         imgEdit.classList.add('postCountlikesImg');
@@ -123,6 +123,7 @@ function post() {
       showPostinfo.append(showPostusersName, showPostusersTime, showPostcontents, postmoney, postplace, posthours);//eslint-disable-line
       showPostsusers.append(showPostusersInfo, showPostinfo, postCount);
     });
+    console.log(renderizedPost.length, 'los que ya estaban');
   });
 
   const menuPost = document.createElement('section');
@@ -176,6 +177,9 @@ function post() {
 
   menuPost.append(returnstartIcon, createpostIcon, exitIcon);
   postLayout.append(topInfo, showPostsusers, newPostcontainer, menuPost);
+
+  /* let hearIncomingPost = ''; */
+
 
   return postLayout;
 }

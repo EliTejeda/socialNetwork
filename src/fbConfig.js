@@ -20,29 +20,35 @@ let docId = '';
 let currentUserid = '';
 export let currentUsermail = ''; //eslint-disable-line
 let currentName = ''; //eslint-disable-line
-export let errorMessage = "";//eslint-disable-line
+export let errorMessage = '';//eslint-disable-line
 const timeElapsed = Date.now();
 const today = new Date(timeElapsed);
 
+initializeApp(firebaseConfig);
 export const createUser = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;//eslint-disable-line
+      const user = userCredential.user;
+      console.log(user);
+      alert('Cuenta creada con éxito!');
     })
     .catch((error) => {
       const errorCode = error.code;
-      errorMessage = error.message;
-      if (errorCode === 'auth/invalid-email') {
-        alert('email invalido');//eslint-disable-line
+      console.log(errorCode);
+     /*  if (errorCode === 'auth/invalid-email') {
+        alert('email invalido');
       } else if (errorCode === 'auth/weak-password') {
-        alert('contraseña invalida');//eslint-disable-line
+        alert('contraseña invalida');
       } else if (errorCode === 'auth/missing-email') {
-        alert('falta correo');//eslint-disable-line
+        alert('falta correo');
       } else if (errorCode === 'auth/internal-error') {
-        alert('falta correo');//eslint-disable-line
-      }
+        alert('falta correo');
+      } else if (errorCode === 'auth/email-already-in-use') {
+        alert('correo existe');
+      } */
     });
 };
+
 export function authenticUser() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -52,7 +58,8 @@ export function authenticUser() {
       onNavigate('/');
     }
   });
-} authenticUser();
+}
+authenticUser();
 
 export const loginUser = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
@@ -94,7 +101,6 @@ export async function createProfile(name, lastName, email) {
     });
     docId = docRef.id;
     console.log('Document written with ID: ', docId); //eslint-disable-line
-    onNavigate('/login');
   } catch (e) {
     console.error('Error adding document: ', e);//eslint-disable-line
     console.log(console.error);//eslint-disable-line
