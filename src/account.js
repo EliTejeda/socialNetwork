@@ -50,8 +50,6 @@ function account() {
   createButton.classList.add('loginButton');
   createButton.textContent = 'Crear';
   createButton.addEventListener('click', () => {
-    document.write(createUser(registerInput.value, passInput.value));
-   /*  createProfile(userName.value, userLastName.value, registerInput.value); */
     createUser(registerInput.value, passInput.value);
     console.log(registerInput.value, passInput.value, "loquemanda");
     onNavigate("/login");
