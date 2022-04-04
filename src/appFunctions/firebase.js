@@ -1,48 +1,44 @@
 import { initializeApp, firebaseConfig, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from '../lib/firebaseConfig.js'; //eslint-disable-line 
-//import { getName } from './firestore.js';//eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
 initializeApp(firebaseConfig);
 const auth = getAuth();
 
 export let currentUsermail = ''; //eslint-disable-line
-export let currentUserid = '';
+export const currentUserid = '';
 export const createUser = (email, password) => {
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;
-      console.log(user);
-      alert('Cuenta creada con éxito!');
+      const user = userCredential.user;//eslint-disable-line
     })
     .catch((error) => {
       const errorCode = error.code;
-      console.log(errorCode);
-     /*  if (errorCode === 'auth/invalid-email') {
-          alert('email invalido');
-        } else if (errorCode === 'auth/weak-password') {
-          alert('contraseña invalida');
-        } else if (errorCode === 'auth/missing-email') {
-          alert('falta correo');
-        } else if (errorCode === 'auth/internal-error') {
-          alert('falta correo');
-        } else if (errorCode === 'auth/email-already-in-use') {
-          alert('correo existe');
-        } */
+      if (errorCode === 'auth/invalid-email') {
+        alert('email invalido');//eslint-disable-line
+      } else if (errorCode === 'auth/weak-password') {
+        alert('contraseña invalida');//eslint-disable-line
+      } else if (errorCode === 'auth/missing-email') {
+        alert('falta correo');//eslint-disable-line
+      } else if (errorCode === 'auth/internal-error') {
+        alert('falta correo');//eslint-disable-line
+      } else if (errorCode === 'auth/email-already-in-use') {
+        alert('correo existe');//eslint-disable-line
+      }
     });
 };
 
 export function authenticUser() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      currentUserid = user.uid;
+      currentUserid = user.uid;//eslint-disable-line
       currentUsermail = user.email;
     } else if (user === null) {
-      //getName(currentUsermail);
       onNavigate('/');
     }
   });
 }
 authenticUser();
+
 export const loginUser = (email, password) => {
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {//eslint-disable-line
@@ -52,8 +48,8 @@ export const loginUser = (email, password) => {
     .catch((error) => {
      const errorCode = error.code;//eslint-disable-line
      errorMessage = error.message;//eslint-disable-line
-      alert(errorMessage);
-      });
+      alert(errorMessage);//eslint-disable-line
+    });
 };
 
 export const loginGoogle = () => {

@@ -18,7 +18,6 @@ export async function getName() {//eslint-disable-line
     console.error('Error adding document: ', e);//eslint-disable-line
   }
 }
-getName();
 
 export async function createProfile(name, lastName, email) {
   try {
