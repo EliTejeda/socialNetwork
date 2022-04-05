@@ -25,6 +25,7 @@ export async function newPosts() {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         incomingPost.push(change.doc.data());
+        console.log(incomingPost);//eslint-disable-line
         numberOfIncomings = incomingPost.length;
       }
     });
