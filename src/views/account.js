@@ -1,5 +1,4 @@
-import { createUser} from '../appFunctions/firebase.js'; //eslint-disable-line
-import {createProfile} from '../appFunctions/firestore.js'; //eslint-disable-line
+import {createProfile, createUser} from '../appFunctions/fbConfig.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
 function account() {
