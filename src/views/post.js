@@ -1,7 +1,7 @@
 import { newPosts, renderAdvice } from '../appFunctions/onSnapshot.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
-import { createPost, getPosts, getName, deletePost, editPost, aLike} from '../appFunctions/firestore.js'; //eslint-disable-line
-import { logoutUser, currentUsermail} from '../appFunctions/firebase.js'; //eslint-disable-line
+import { createPost, getPosts, getName, deletePost, editPost, aLike, logoutUser, currentUsermail } from '../appFunctions/fbConfig.js'; //eslint-disable-line
+
 
 function post() {
   const postLayout = document.createElement('div');
@@ -12,10 +12,10 @@ function post() {
   const startLogo = document.createElement('img');
   startLogo.classList.add('logoMuñePost');
   startLogo.src = './assets/mochilero.png';
-
   let userName = '';
   let userDataFilter = '';
   let userDataName = '';
+console.log(currentUsermail);
   getName().then((name) => {
     name.forEach((doc) => {
       userDataFilter = (doc.id, ' => ', doc.data());
@@ -124,7 +124,7 @@ function post() {
       showPostinfo.append(showPostusersName, showPostusersTime, showPostcontents, postmoney, postplace, posthours);//eslint-disable-line
       showPostsusers.append(showPostusersInfo, showPostinfo, postCount);
     });
-    console.log(renderizedPost.length, 'los que ya estaban');
+    //console.log(renderizedPost.length, 'los que ya estaban');
   });
 
   const menuPost = document.createElement('section');
