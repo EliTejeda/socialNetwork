@@ -1,4 +1,4 @@
-import { loginUser, authenticUser, loginGoogle} from '../appFunctions/fbConfig.js'; //eslint-disable-line
+import { loginUser, authenticUser, loginGoogle} from '../lib/fbConfig.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
 function login() {
