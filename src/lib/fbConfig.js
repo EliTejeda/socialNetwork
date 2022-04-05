@@ -32,6 +32,7 @@ export const createUser = (email, password) => {
       }
     });
 };
+
 export function authenticUser() {
   onAuthStateChanged(auth, (user) => {
     if (user) {

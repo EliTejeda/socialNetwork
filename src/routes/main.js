@@ -28,8 +28,12 @@ const onNavigate = (pathname) => {
 window.onpopstate = () => {       /*actualiza url localizacion *///eslint-disable-line
   rootDiv.appendChild(routes[window.location.pathname]());
 };
-
 const component = routes[window.location.pathname];
-rootDiv.appendChild(component());
 
+window.onload = () => {
+  while (rootDiv.firstChild) {
+    rootDiv.removeChild(rootDiv.firstChild);
+  }
+  rootDiv.appendChild(component());
+};
 export { onNavigate };
