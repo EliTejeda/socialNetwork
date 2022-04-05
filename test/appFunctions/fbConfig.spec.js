@@ -1,17 +1,20 @@
+// importamos la funcion que vamos a testear
 
-import { createUser, authenticUser } from '../../src/appFunctions/firebase.js';
+import { createUser } from '../../src/appFunctions/fbConfig.js';
+import { getAuth,createUserWithEmailAndPassword } from '../../src/lib/firebaseConfig.js';
+import { onNavigate } from '../../src/routes/main.js';
 
+jest.mock('../../src/lib/__mocks__/firebaseConfig.js');
+jest.mock('../../src/routes/__mocks__/main.js');
+
+const email = 'testeo@gmail.com'
+const password = '123xmi',
 
 describe('createUser', () => {
   it('must be a function', () => {
     expect(typeof createUser).toBe('function');
   });
-  it('must let user create profile with email:test@test.com and password:123xmi', (done) => {//eslint-disable-line
-    return createUser('Teo Testeo').then((data) => {//eslint-disable-line
-      const callback = (createUser) => {//eslint-disable-line
-        console.log(createUser);//eslint-disable-line
-      };
-      authenticUser(callback);
-    });
+  it('must create an user', () => {
+    expect(createUser(getAuth(),email,password) ).toBe('Teo Testeo');
   });
 });

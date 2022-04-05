@@ -2,7 +2,6 @@ import { newPosts, renderAdvice } from '../appFunctions/onSnapshot.js'; //eslint
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 import { createPost, getPosts, getName, deletePost, editPost, aLike, logoutUser, currentUsermail } from '../appFunctions/fbConfig.js'; //eslint-disable-line
 
-
 function post() {
   const postLayout = document.createElement('div');
   postLayout.classList.add('postContainer');
@@ -15,7 +14,6 @@ function post() {
   let userName = '';
   let userDataFilter = '';
   let userDataName = '';
-console.log(currentUsermail);
   getName().then((name) => {
     name.forEach((doc) => {
       userDataFilter = (doc.id, ' => ', doc.data());
@@ -124,7 +122,6 @@ console.log(currentUsermail);
       showPostinfo.append(showPostusersName, showPostusersTime, showPostcontents, postmoney, postplace, posthours);//eslint-disable-line
       showPostsusers.append(showPostusersInfo, showPostinfo, postCount);
     });
-    //console.log(renderizedPost.length, 'los que ya estaban');
   });
 
   const menuPost = document.createElement('section');
@@ -180,7 +177,6 @@ console.log(currentUsermail);
   postLayout.append(topInfo, showPostsusers, newPostcontainer, menuPost);
 
   /* let hearIncomingPost = ''; */
-
 
   return postLayout;
 }

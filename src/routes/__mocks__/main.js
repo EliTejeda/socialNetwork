@@ -1,0 +1,5 @@
+const onNavigate = () => '';
+
+export {
+  onNavigate,
+};
