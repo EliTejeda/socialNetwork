@@ -21,10 +21,6 @@ body {
   
  }
 
- .logoHome{
-    max-width: 3em;
-}
-
 .startContainer {
     width: 100vw;
     height: 100vh;
@@ -52,7 +48,6 @@ body {
 .titleStart{
     margin-top: 0em;
     width: 15em;
-    margin: auto;
 }
 .startInputs {
     width: 100%;
