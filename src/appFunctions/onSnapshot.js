@@ -9,9 +9,8 @@ let renderizedPostLength = '';
 export async function renderAdvice(number) {
   const campanita = number - renderizedPostLength;
   if (campanita > 0) {
-    console.log(campanita);
-    const NewPostAlert = 'Hay ' + campanita + ' nuevos Paseitos.'
-    alert(NewPostAlert);
+    const NewPostAlert = 'Hay ' + campanita + ' nuevos Paseitos.'//eslint-disable-line
+    alert(NewPostAlert);//eslint-disable-line
   }
 }
 
@@ -22,7 +21,7 @@ export async function newPosts() {
     renderizedPost.push(postsUsers);
     renderizedPostLength = renderizedPost.length;
   });
-  const unsubscribe = onSnapshot(q, (snapshot) => {
+  const unsubscribe = onSnapshot(q, (snapshot) => { //eslint-disable-line
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         incomingPost.push(change.doc.data());

@@ -1,4 +1,4 @@
-import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, setDoc, getDoc, updateDoc} from '../lib/firestoreConfig.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, setDoc, getDoc, updateDoc} from '../lib/firebaseConfig.js'; //eslint-disable-line
 import {initializeApp, firebaseConfig, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from '../lib/firebaseConfig.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
@@ -52,7 +52,7 @@ export const loginUser = (email, password) => {
     .catch((error) => {
       const errorCode = error.code;//eslint-disable-line
       errorMessage = error.message;//eslint-disable-line
-      alert(errorMessage);
+      alert(errorMessage);//eslint-disable-line
     });
 };
 
