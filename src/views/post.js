@@ -1,3 +1,4 @@
+import { newPosts } from '../onSnapshot/onSnapshot.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 import { createPost, getPosts, getName, deletePost, editPost, aLike, logoutUser, currentUsermail } from '../lib/fbConfig.js'; //eslint-disable-line
 
@@ -37,9 +38,9 @@ function post() {
       showPostusersName.textContent = postsUsers.data().Email;
       const showPostusersTime = document.createElement('p');
       showPostusersTime.classList.add('showPostusersTime');
-      showPostusersInfo.append(showPostusersTime);
-      const timeUser = new Date(postsUsers.data().Date);
-      showPostusersTime.textContent = timeUser;
+      const timeUser = new Date(postsUsers.data().Date).toDateString();
+      /* showPostusersTime.textContent = timeUser;
+      showPostusersInfo.append(showPostusersTime); */
       const showPostinfo = document.createElement('div');
       showPostinfo.classList.add('showPostinfo');
       const showPostcontents = document.createElement('p');
@@ -50,7 +51,7 @@ function post() {
       const postplace = document.createElement('p');
       postplace.textContent = 'Lugar: ' + postsUsers.data().Place;//eslint-disable-line
       const posthours = document.createElement('p');
-      posthours.textContent = 'Tiempo invertido: ' + postsUsers.data().Hours;//eslint-disable-line
+      posthours.textContent = 'Tiempo: ' + postsUsers.data().Hours;//eslint-disable-line
       const postCount = document.createElement('div');
       postCount.classList.add('postCount');
       const postCountlikes = document.createElement('div');
@@ -114,7 +115,7 @@ function post() {
         });
         containerPencil.append(imgEdit, imgDelete);
       }
-      postCount.append(containerPencil, postCountlikesSum, heartContainer);
+      postCount.append(containerPencil, heartContainer, postCountlikesSum);
 
       const showPostEdit = document.createElement('div');
       showPostEdit.classList.add('showPostEdit');
@@ -176,7 +177,7 @@ function post() {
   postLayout.append(topInfo, showPostsusers, newPostcontainer, menuPost);
 
   /* let hearIncomingPost = ''; */
-
+  newPosts();
   return postLayout;
 }
 export { post };

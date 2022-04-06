@@ -163,8 +163,7 @@ export async function aLike(id) {
   } else {
     // doc.data() will be undefined in this case
     console.log('No such document!');//eslint-disable-line
-  }
-  console.log(docSnap.data().Likes, 'lo que manda ALIKE');//eslint-disable-line
+  }//eslint-disable-line
   updateLike(id, docSnap.data().Likes);
   onNavigate('/post');
 }

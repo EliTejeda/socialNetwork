@@ -43,9 +43,8 @@ function login() {
   const error = document.createElement('p');
   loginButton.addEventListener('click', (event) => {
     event.preventDefault();
-    loginUser(loginInput.value, passInput.value).catch((messageError) => {
+    loginUser(loginInput.value, passInput.value);
       console.log(messageError);//eslint-disable-line
-    });
     authenticUser(loginInput.value);
   });
 

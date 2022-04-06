@@ -8,7 +8,7 @@ let renderizedPostLength = '';
 
 export async function renderAdvice(number) {
   const campanita = number - renderizedPostLength;
-  if (campanita > 0) {
+  if (campanita === 2) {
     const NewPostAlert = 'Hay ' + campanita + ' nuevos Paseitos.'//eslint-disable-line
     alert(NewPostAlert);//eslint-disable-line
   }
@@ -25,7 +25,6 @@ export async function newPosts() {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
         incomingPost.push(change.doc.data());
-        console.log(incomingPost);//eslint-disable-line
         numberOfIncomings = incomingPost.length;
       }
     });
