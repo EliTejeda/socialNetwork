@@ -1,5 +1,6 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js'; //eslint-disable-line
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-app.js';//eslint-disable-line 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-auth.js'; //eslint-disable-line 
+import { getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, setDoc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js';//eslint-disable-line 
 
 export {
   getAuth,
@@ -25,8 +26,6 @@ export const firebaseConfig = {
 export {
   initializeApp,
 };
-
-import { getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, setDoc, getDoc, updateDoc } from 'https://www.gstatic.com/firebasejs/9.6.7/firebase-firestore.js';//eslint-disable-line
 
 export {
   getFirestore,

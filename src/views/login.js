@@ -1,4 +1,4 @@
-import { loginUser, authenticUser, loginGoogle} from '../appFunctions/fbConfig.js'; //eslint-disable-line
+import { loginUser, authenticUser, loginGoogle} from '../lib/fbConfig.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
 function login() {
@@ -44,7 +44,7 @@ function login() {
   loginButton.addEventListener('click', (event) => {
     event.preventDefault();
     loginUser(loginInput.value, passInput.value).catch((messageError) => {
-      console.log(messageError);
+      console.log(messageError);//eslint-disable-line
     });
     authenticUser(loginInput.value);
   });

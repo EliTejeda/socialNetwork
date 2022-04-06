@@ -1,5 +1,5 @@
-import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, setDoc, getDoc, updateDoc} from '../lib/firebaseConfig.js'; //eslint-disable-line
-import {initializeApp, firebaseConfig, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from '../lib/firebaseConfig.js'; //eslint-disable-line
+import {getFirestore, addDoc, collection, getDocs, query, where, deleteDoc, doc, setDoc, getDoc, updateDoc} from './firebaseConfig.js'; //eslint-disable-line
+import {initializeApp, firebaseConfig, getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider} from './firebaseConfig.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
 initializeApp(firebaseConfig);
@@ -32,12 +32,13 @@ export const createUser = (email, password) => {
       }
     });
 };
+
 export function authenticUser() {
   onAuthStateChanged(auth, (user) => {
     if (user) {
       currentUserid = user.uid;
       currentUsermail = user.email;
-    } else if (user === null) {
+    } else if (user === null) {//eslint-disable-line
       onNavigate('/');
     }
   });

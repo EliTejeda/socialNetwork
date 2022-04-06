@@ -21,7 +21,10 @@ body {
   
  }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 45eaeb3a4d5b016f65131be16eb7beae987a1c4c
 .startContainer {
     width: 100vw;
     height: 100vh;
@@ -431,7 +434,12 @@ p{
         border-radius: 30px;
         background-color: rgb(253, 250, 250);
         border: solid 1px rgb(21, 71, 1);
+<<<<<<< HEAD
          box-shadow: 8px 5px 5px rgb(125, 125, 126);  
+=======
+        box-shadow: 8px 5px 5px rgb(125, 125, 126);  
+        margin: 20px;
+>>>>>>> 45eaeb3a4d5b016f65131be16eb7beae987a1c4c
         text-align: center;
     } 
 

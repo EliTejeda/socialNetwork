@@ -1,6 +1,5 @@
-import { newPosts, renderAdvice } from '../appFunctions/onSnapshot.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
-import { createPost, getPosts, getName, deletePost, editPost, aLike, logoutUser, currentUsermail } from '../appFunctions/fbConfig.js'; //eslint-disable-line
+import { createPost, getPosts, getName, deletePost, editPost, aLike, logoutUser, currentUsermail } from '../lib/fbConfig.js'; //eslint-disable-line
 
 function post() {
   const postLayout = document.createElement('div');
@@ -14,7 +13,6 @@ function post() {
   let userName = '';
   let userDataFilter = '';
   let userDataName = '';
-console.log(currentUsermail);//eslint-disable-line
   getName().then((name) => {
     name.forEach((doc) => {
       userDataFilter = (doc.id, ' => ', doc.data());
