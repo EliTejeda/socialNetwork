@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-const collection
-=======
 const collection = (db, collection) => { //eslint-disable-line
   return {};
 };
@@ -21,4 +18,3 @@ export {
   getAuth,
   onAuthStateChanged,
 };
->>>>>>> 45eaeb3a4d5b016f65131be16eb7beae987a1c4c

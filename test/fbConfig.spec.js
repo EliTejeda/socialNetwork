@@ -24,6 +24,10 @@ describe('createUser', () => {
   it('must be a function', () => {
     expect(typeof createUser).toBe('function');
   });
+
+  it('must be a function', () => {
+    expect(typeof createUser).toBe('function');
+  });
 });
 
 describe('authenticUser', () => {

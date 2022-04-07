@@ -1,4 +1,3 @@
-import { newPosts } from '../onSnapshot/onSnapshot.js'; //eslint-disable-line
 import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 import { createPost, getPosts, getName, deletePost, editPost, aLike, logoutUser, currentUsermail } from '../lib/fbConfig.js'; //eslint-disable-line
 
@@ -38,7 +37,7 @@ function post() {
       showPostusersName.textContent = postsUsers.data().Email;
       const showPostusersTime = document.createElement('p');
       showPostusersTime.classList.add('showPostusersTime');
-      const timeUser = new Date(postsUsers.data().Date).toDateString();
+      /* const timeUser = new Date(postsUsers.data().Date).toDateString(); */
       /* showPostusersTime.textContent = timeUser;
       showPostusersInfo.append(showPostusersTime); */
       const showPostinfo = document.createElement('div');
@@ -177,7 +176,6 @@ function post() {
   postLayout.append(topInfo, showPostsusers, newPostcontainer, menuPost);
 
   /* let hearIncomingPost = ''; */
-  newPosts();
   return postLayout;
 }
 export { post };

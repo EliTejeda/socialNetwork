@@ -31,6 +31,7 @@ export const createUser = (email, password) => {
         alert('falta correo');//eslint-disable-line
       }
     });
+  return email;
 };
 
 export function authenticUser() {
@@ -63,7 +64,7 @@ export async function getName() {//eslint-disable-line
     const querySnapshot = await getDocs(q);
     return querySnapshot;
   } catch (e) {
-    console.error('Error adding document: ', e);//eslint-disable-line
+    /* console.error('Error adding document: ', e); *///eslint-disable-line
   }
 }
 getName();
