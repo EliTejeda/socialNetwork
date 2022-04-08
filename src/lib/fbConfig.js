@@ -64,11 +64,6 @@ export const loginUser = (email, password) => {
 export async function getName() {//eslint-disable-line
   const q = query(collection(db, 'users'), where('correo', '==', currentUsermail));
   const querySnapshot = await getDocs(q);
-  try {
-    console.log('pasamos test');//eslint-disable-line
-  } catch (e) {
-    /* console.error('Error adding document: ', e); *///eslint-disable-line
-  }
   return querySnapshot;
 }
 getName();
@@ -90,40 +85,24 @@ export async function createProfile(name, lastName, email) {
   docId = docRef.id;
   console.log('Document written with ID: ', docId); //eslint-disable-line
   onNavigate('/login');
-  try {
-    console.log('ya casi');//eslint-disable-line
-  } catch (e) {
-    console.error('Error adding document: ', e);//eslint-disable-line
-    console.log(console.error);//eslint-disable-line
-    onNavigate('/account');
-  }
   return docRef;
 }
 
 export async function createPost(post, place, hours, money) {
-  try {
-    const docRef = await addDoc(collection(db, 'Post'), {
-      Post: post,
-      Place: place,
-      Hours: hours,
-      Money: money,
-      Uid: currentUserid,
-      Email: currentUsermail,
-      Likes: [],
-      Date: today,
-    });
+  const docRef = await addDoc(collection(db, 'Post'), {
+    Post: post,
+    Place: place,
+    Hours: hours,
+    Money: money,
+    Uid: currentUserid,
+    Email: currentUsermail,
+    Likes: [],
+    Date: today,
+  });
     console.log('Document written with ID: ', docRef.id); //eslint-disable-line
-  } catch (e) {
-    console.error('Error adding document: ', e);//eslint-disable-line
-  }
 }
 export async function getPosts() {
   const querySnapshot = await getDocs(collection(db, 'Post'));
-  try {
-    console.log(querySnapshot);//eslint-disable-line
-  } catch (error) {
-    alert(error);//eslint-disable-line
-  }
   return querySnapshot;
 }
 
