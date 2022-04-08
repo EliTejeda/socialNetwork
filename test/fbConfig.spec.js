@@ -1,4 +1,4 @@
-/**
+/* /**
  * @jest-environment jsdom
  */
 
@@ -24,9 +24,11 @@ describe('createUser', () => {
   it('must be a function', () => {
     expect(typeof createUser).toBe('function');
   });
-
-  it('must be a function', () => {
-    expect(typeof createUser).toBe('function');
+  it('must return Promise', () => {
+    expect(createUser('eli@gmail.com', 'fds')).toEqual(Promise.resolve({}));
+  });
+  it('must be an Object', () => {
+    expect(typeof createUser('eli@gmail.com', 'fds')).toBe('object');
   });
 });
 
@@ -46,6 +48,9 @@ describe('getName', () => {
   it('must be a function', () => {
     expect(typeof getName).toBe('function');
   });
+  it('must return Promise', async () => {
+    expect(await getName()).toEqual({});
+  });
 });
 
 describe('logoutUser', () => {
@@ -58,6 +63,9 @@ describe('createProfile', () => {
   it('must be a function', () => {
     expect(typeof createProfile).toBe('function');
   });
+  it('must return Promise', async () => {
+    expect(await createProfile()).toEqual({});
+  });
 });
 
 describe('createPost', () => {
@@ -69,6 +77,9 @@ describe('createPost', () => {
 describe('getPosts', () => {
   it('must be a function', () => {
     expect(typeof getPosts).toBe('function');
+  });
+  it('must return Promise', async () => {
+    expect(await getPosts()).toEqual({});
   });
 });
 
