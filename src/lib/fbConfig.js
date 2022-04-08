@@ -4,37 +4,39 @@ import { onNavigate } from '../routes/main.js'; //eslint-disable-line
 
 initializeApp(firebaseConfig);
 const db = getFirestore();
-const auth = getAuth();
+/* const auth = getAuth(); */
 let docId = '';
 let currentUserid = '';
 export let currentUsermail = ''; //eslint-disable-line
 let currentName = ''; //eslint-disable-line
-export let errorMessage = "";//eslint-disable-line
+export let errorMessage = '';//eslint-disable-line
 const timeElapsed = Date.now();
 const today = new Date(timeElapsed);
 
 export const createUser = (email, password) => {
+  const auth = getAuth();
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      const user = userCredential.user;//eslint-disable-line
+    const user = userCredential.user;//eslint-disable-line
     })
     .catch((error) => {
       const errorCode = error.code;
       errorMessage = error.message;
       if (errorCode === 'auth/invalid-email') {
-        alert('email invalido');//eslint-disable-line
+      alert('email invalido');//eslint-disable-line
       } else if (errorCode === 'auth/weak-password') {
-        alert('contraseña invalida');//eslint-disable-line
+      alert('contraseña invalida');//eslint-disable-line
       } else if (errorCode === 'auth/missing-email') {
-        alert('falta correo');//eslint-disable-line
+      alert('falta correo');//eslint-disable-line
       } else if (errorCode === 'auth/internal-error') {
-        alert('falta correo');//eslint-disable-line
+      alert('falta correo');//eslint-disable-line
       }
     });
-  return email;
+  return createUserWithEmailAndPassword(auth, email, password);
 };
 
 export function authenticUser() {
+  const auth = getAuth();
   onAuthStateChanged(auth, (user) => {
     if (user) {
       currentUserid = user.uid;
@@ -46,6 +48,7 @@ export function authenticUser() {
 } authenticUser();
 
 export const loginUser = (email, password) => {
+  const auth = getAuth();
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {//eslint-disable-line
       // console.log(userCredential);
@@ -59,17 +62,19 @@ export const loginUser = (email, password) => {
 };
 
 export async function getName() {//eslint-disable-line
+  const q = query(collection(db, 'users'), where('correo', '==', currentUsermail));
+  const querySnapshot = await getDocs(q);
   try {
-    const q = query(collection(db, 'users'), where('correo', '==', currentUsermail));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot;
+    console.log('pasamos test');//eslint-disable-line
   } catch (e) {
     /* console.error('Error adding document: ', e); *///eslint-disable-line
   }
+  return querySnapshot;
 }
 getName();
 
 export const logoutUser = () => {
+  const auth = getAuth();
   signOut(auth).then(() => {
   }).catch((error) => {//eslint-disable-line
   // An error happened.
@@ -77,20 +82,22 @@ export const logoutUser = () => {
 };
 
 export async function createProfile(name, lastName, email) {
+  const docRef = await addDoc(collection(db, 'users'), {
+    Name: name,
+    LastName: lastName,
+    correo: email,
+  });
+  docId = docRef.id;
+  console.log('Document written with ID: ', docId); //eslint-disable-line
+  onNavigate('/login');
   try {
-    const docRef = await addDoc(collection(db, 'users'), {
-      Name: name,
-      LastName: lastName,
-      correo: email,
-    });
-    docId = docRef.id;
-    console.log('Document written with ID: ', docId); //eslint-disable-line
-    onNavigate('/login');
+    console.log('ya casi');//eslint-disable-line
   } catch (e) {
     console.error('Error adding document: ', e);//eslint-disable-line
     console.log(console.error);//eslint-disable-line
     onNavigate('/account');
   }
+  return docRef;
 }
 
 export async function createPost(post, place, hours, money) {
@@ -112,6 +119,11 @@ export async function createPost(post, place, hours, money) {
 }
 export async function getPosts() {
   const querySnapshot = await getDocs(collection(db, 'Post'));
+  try {
+    console.log(querySnapshot);//eslint-disable-line
+  } catch (error) {
+    alert(error);//eslint-disable-line
+  }
   return querySnapshot;
 }
 
@@ -131,6 +143,7 @@ export async function editPost(id, editedPost, editedPlace, editedHours, editedM
 }
 
 export const loginGoogle = () => {
+  const auth = getAuth();
   const provider = new GoogleAuthProvider();
   signInWithPopup(auth, provider)
     .then((result) => {

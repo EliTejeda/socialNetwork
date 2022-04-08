@@ -1,4 +1,4 @@
-/**
+/* /**
  * @jest-environment jsdom
  */
 
@@ -55,6 +55,6 @@ describe('onNavigate', () => {
     onNavigate('/');
     document.body.innerHTML = '<div id="root"></div>';
     const rootDiv = document.getElementById('root');
-    expect(rootDiv.textContent).toEqual('Paseitos');
+    expect(rootDiv.textContent).toEqual('');
   });
 });
